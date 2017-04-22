@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
 
 def index(request):
-    return HttpResponse("KDHX Music Library")
+    context = {'message': 'KDHX Music Library'}
+    return render(request, 'albums/index.html', context)
