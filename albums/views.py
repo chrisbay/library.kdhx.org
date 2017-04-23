@@ -2,5 +2,5 @@ from django.shortcuts import render
 
 
 def index(request):
-    context = {'message': 'KDHX Music Library'}
+    context = {'message': 'Albums Index'}
     return render(request, 'albums/index.html', context)

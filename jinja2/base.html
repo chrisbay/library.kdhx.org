@@ -1,14 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
     <title>KDHX Music Library</title>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <meta name="google-signin-client_id" content="326758487663-bto5rf6c4g4jva1v6beteu2ieg6to012.apps.googleusercontent.com">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ static('css/library-kdhx-org.css') }}">
 </head>
+
 <body>
-    <header>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        <script>
+
+    <header class="navbar navbar-toggleable-sm navbar-light bg-faded">
+        <nav class="container">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="{{ static('images/kdhx-logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">Music Library
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('albums:index') }}">Albums</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Labels</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#">Sign out</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container container-fluid">
+        {% block content %} 
+        {{ message }} 
+        {% endblock %}
+    </div>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script>
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
             console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -16,22 +73,15 @@
             console.log('Image URL: ' + profile.getImageUrl());
             console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
         }
-        </script>
 
-        <a href="#" onclick="signOut();">Sign out</a>
-        <script>
         function signOut() {
             var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
-            console.log('User signed out.');
+                console.log('User signed out.');
             });
         }
-        </script>
-    </header>
-
-    {% block content %}
-    {{ message }}
-    {% endblock %}
+    </script>
 
 </body>
+
 </html>
