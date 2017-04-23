@@ -55,7 +55,7 @@ ROOT_URLCONF = 'library.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'jinja2')],
         'APP_DIRS': True,
         'OPTIONS': {
             'environment': 'library.jinja2.environment'
