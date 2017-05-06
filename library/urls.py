@@ -15,8 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import logout
+from django.views.generic import TemplateView
 
 urlpatterns = [
+    url(r'', include('social_django.urls', namespace='social')),
+    url(r'^$', TemplateView.as_view(template_name="login.html")),
+    url(r'^logout/$', logout, {'next_page': '/'}, name='gauth_logout'),
+    url(r'^login-error/$', TemplateView.as_view(template_name="login-error.html")),
     url(r'^albums/', include('albums.urls', namespace='albums')),
     url(r'^admin/', admin.site.urls),
 ]

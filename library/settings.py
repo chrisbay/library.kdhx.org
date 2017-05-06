@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'social_django',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'library.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'library.urls'
@@ -58,8 +60,8 @@ TEMPLATES = [
         'DIRS': [os.path.join(BASE_DIR, 'jinja2')],
         'APP_DIRS': True,
         'OPTIONS': {
-            'environment': 'library.jinja2.environment'
-        }
+            'environment': 'library.jinja2.environment',
+        },
     },
 ]
 
@@ -121,4 +123,27 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
+]
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Django Social Auth Config
+
+AUTHENTICATION_BACKENDS = ( 
+    'social_core.backends.google.GoogleOAuth2',
+)
+
+LOGIN_URL          = '/login/google-oauth2/'       
+LOGIN_ERROR_URL    = '/login-error/'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY      = '326758487663-bto5rf6c4g4jva1v6beteu2ieg6to012.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET  = 'jgHIVsl7gyP2cI2lRM3cFbPJ'
+SOCIAL_AUTH_GOOGLE_OAUTH2_WHITE_LISTED_DOMAINS = ['kdhx.org']
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/albums'
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+LOGIN_EXEMPT_URLS = [
+    LOGIN_ERROR_URL.lstrip('/'),
+    'complete/google-oauth2/',
 ]
