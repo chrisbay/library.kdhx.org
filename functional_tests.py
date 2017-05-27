@@ -1,8 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
+
 import os
 import unittest
-import time
 
 
 class AlbumsAppTests(unittest.TestCase):
@@ -27,12 +30,15 @@ class AlbumsAppTests(unittest.TestCase):
             email_field.click()
             email_field.send_keys(os.environ['KDHX_TEST_USER_EMAIL'])
             email_field.send_keys(Keys.RETURN)
-            time.sleep(2)
-
+            
+            WebDriverWait(cls.browser, 5).until(
+                ec.visibility_of_element_located((By.ID, 'password')))
             password_field = cls.browser.switch_to.active_element['value']
             password_field.send_keys(os.environ['KDHX_TEST_USER_PASS'])
             password_field.send_keys(Keys.RETURN)
-            time.sleep(2)
+            
+            WebDriverWait(cls.browser, 5).until(
+                ec.visibility_of_element_located((By.ID, 'kdhx-logo')))
 
         except:
             cls.browser.quit()
