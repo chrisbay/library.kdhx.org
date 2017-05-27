@@ -2,10 +2,12 @@ from django.shortcuts import render
 
 
 def index(request):
-    context = {'message': 'Albums Index', 'page_title': 'Albums'}
-    return render(request, 'albums/index.html', context)
+    return render(request, 'albums/index.html', {'page_title': 'Albums'})
 
 
 def new(request):
-    context = {'page_title': 'New Album'}
-    return render(request, 'albums/new.html', context)
+    return render(request, 'albums/new.html', {'page_title': 'New Album'})
+
+
+def new_media(request):
+    return render(request, 'albums/media/new.html', {'page_title': 'New Media Type'})

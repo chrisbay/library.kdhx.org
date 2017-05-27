@@ -46,7 +46,24 @@ class AlbumsAppTests(unittest.TestCase):
     def tearDownClass(cls):
         cls.browser.quit()
 
+
+    def test_can_add_new_media(self):
+
+        # User browses to /albums/media/new/ and sees the new media type form
+        self.browser.get('http://localhost:8000/albums/media/new/')
+        self.assertIn('New Media Type', self.browser.title)
+
+        header_text = self.browser.find_element_by_xpath('//h1[1]').text
+        self.assertIn('New Media Type', header_text)
+
+        album_name_input = self.browser.find_element_by_xpath('//form/input[@name="media-label"]')
+        self.assertEqual(album_name_input.get_attribute('placeholder'), 'Label')
+
+        # TODO - User enters a label for the new media type, and clicks the Save button
+
+        # TODO - User is redirected to the Albums Admin page, with a confirmation flash message
     
+
     def test_can_add_new_album(self):
 
         # User browses to /albums/new/ and sees the new album form
@@ -59,11 +76,11 @@ class AlbumsAppTests(unittest.TestCase):
         album_name_input = self.browser.find_element_by_xpath('//form/input[@name="album-title"]')
         self.assertEqual(album_name_input.get_attribute('placeholder'), 'Album Title')
 
-        # User enters data for a new album, and clicks the Save button
+        # TODO - User enters data for a new album, and clicks the Save button
 
-        # User sees new album form rendered again, with a confirmation flash message
+        # TODO - User sees new album form rendered again, with a confirmation flash message
 
-        # User clicks on the flash message link to view new album details
+        # TODO - User clicks on the flash message link to view new album details
 
 
 if __name__ == '__main__':

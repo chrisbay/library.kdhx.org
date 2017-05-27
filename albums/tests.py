@@ -31,3 +31,16 @@ class AlbumsTest(TestCase):
         expected_html = render_to_string('albums/new.html', 
             {'page_title': 'New Album'})
         self.assertEqual(response.content.decode(), expected_html)
+
+    
+    def test_media_new_resolves_to_new(self):
+        found = resolve('/albums/media/new/')
+        self.assertEqual(found.func, views.new_media)
+
+    
+    def test_media_new_returns_correct_html(self):
+        request = HttpRequest()
+        response = views.new_media(request)
+        expected_html = render_to_string('albums/media/new.html', 
+            {'page_title': 'New Media Type'})
+        self.assertEqual(response.content.decode(), expected_html)
