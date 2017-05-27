@@ -33,12 +33,13 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    'social_django',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'albums',
+    'social_django',
+    'django_jinja',
 ]
 
 MIDDLEWARE = [
@@ -50,17 +51,23 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'library.middleware.LoginRequiredMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
 ROOT_URLCONF = 'library.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'BACKEND': 'django_jinja.backend.Jinja2',
         'DIRS': [os.path.join(BASE_DIR, 'jinja2')],
         'APP_DIRS': True,
         'OPTIONS': {
             'environment': 'library.jinja2.environment',
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ]
         },
     },
 ]
@@ -146,4 +153,5 @@ SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/albums'
 LOGIN_EXEMPT_URLS = [
     LOGIN_ERROR_URL.lstrip('/'),
     'complete/google-oauth2/',
+    'admin/*'
 ]
