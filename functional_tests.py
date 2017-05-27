@@ -19,9 +19,7 @@ class AlbumsAppTests(unittest.TestCase):
             cls.browser.implicitly_wait(10)
 
             google_email_field_id = 'identifierId'
-            google_email_next_btn_id = 'identifierNext'
             google_password_field_selector = '#password [type="password"]'
-            google_password_next_btn_id = 'passwordNext'
 
             cls.browser.get('http://localhost:8000')
 
@@ -33,27 +31,36 @@ class AlbumsAppTests(unittest.TestCase):
             
             WebDriverWait(cls.browser, 5).until(
                 ec.visibility_of_element_located((By.ID, 'password')))
-            password_field = cls.browser.switch_to.active_element['value']
+            password_field = cls.browser.find_element_by_css_selector(google_password_field_selector)
             password_field.send_keys(os.environ['KDHX_TEST_USER_PASS'])
             password_field.send_keys(Keys.RETURN)
             
             WebDriverWait(cls.browser, 5).until(
                 ec.visibility_of_element_located((By.ID, 'kdhx-logo')))
 
+            assert 'http://localhost:8000/albums/' == cls.browser.current_url, 'Login redirect failed'
+
         except:
             cls.browser.quit()
             assert False, 'Login failed'
+
 
     @classmethod
     def tearDownClass(cls):
         cls.browser.quit()
 
-    def test_login_redirect_url_is_albums(self):
-        self.assertEqual('http://localhost:8000/albums/', self.browser.current_url)
+    
+    def test_can_add_new_album(self):
 
-    def test_albums_page_loads(self):
-        self.browser.get('http://localhost:8000/albums/')
-        self.assertIn('KDHX', self.browser.title)
+        # User browses to /albums/new/ and sees the new album form
+        self.browser.get('http://localhost:8000/albums/new/')
+        self.assertIn('New Album', self.browser.title)
+
+        # User enters data for a new album, and clicks the Save button
+
+        # User sees new album form rendered again, with a confirmation flash message
+
+        # User clicks on the flash message link to view new album details
 
 
 if __name__ == '__main__':
