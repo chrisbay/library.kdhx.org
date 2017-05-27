@@ -20,7 +20,10 @@ $ source activate library.kdhx.org
 
 ### Setting up a database
 
-TODO
+- `$ createdb library_kdhx_org`
+- `> CREATE ROLE library WITH LOGIN PASSWORD 'independentmusicplayshere';`
+- `> GRANT ALL PRIVILEGES ON DATABASE library_kdhx_org TO library;`
+- `> ALTER USER library CREATEDB;`
 
 ### Setting up Oauth2
 
