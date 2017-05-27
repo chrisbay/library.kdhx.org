@@ -16,22 +16,19 @@ class AlbumsAppTests(unittest.TestCase):
         try:
 
             cls.browser = webdriver.Firefox()
-            cls.browser.implicitly_wait(10)
-
-            google_email_field_id = 'identifierId'
-            google_password_field_selector = '#password [type="password"]'
+            cls.browser.implicitly_wait(3)
 
             cls.browser.get('http://localhost:8000')
 
             # Log in
-            email_field = cls.browser.find_element_by_id(google_email_field_id)
+            email_field = cls.browser.find_element_by_id('identifierId')
             email_field.click()
             email_field.send_keys(os.environ['KDHX_TEST_USER_EMAIL'])
             email_field.send_keys(Keys.RETURN)
             
             WebDriverWait(cls.browser, 5).until(
                 ec.visibility_of_element_located((By.ID, 'password')))
-            password_field = cls.browser.find_element_by_css_selector(google_password_field_selector)
+            password_field = cls.browser.find_element_by_css_selector('#password [type="password"]')
             password_field.send_keys(os.environ['KDHX_TEST_USER_PASS'])
             password_field.send_keys(Keys.RETURN)
             
@@ -55,6 +52,12 @@ class AlbumsAppTests(unittest.TestCase):
         # User browses to /albums/new/ and sees the new album form
         self.browser.get('http://localhost:8000/albums/new/')
         self.assertIn('New Album', self.browser.title)
+
+        header_text = self.browser.find_element_by_xpath('//h1[1]').text
+        self.assertIn('New Album', header_text)
+
+        album_name_input = self.browser.find_element_by_xpath('//form/input[@name="album-title"]')
+        self.assertEqual(album_name_input.get_attribute('placeholder'), 'Album Title')
 
         # User enters data for a new album, and clicks the Save button
 
