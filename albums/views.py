@@ -1,4 +1,6 @@
+from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import render
+from albums.models import MediaType
 
 
 def index(request):
@@ -9,5 +11,11 @@ def new(request):
     return render(request, 'albums/new.html', {'page_title': 'New Album'})
 
 
-def new_media(request):
-    return render(request, 'albums/media/new.html', {'page_title': 'New Media Type'})
+class MediaTypeCreate(CreateView):
+    model = MediaType
+    fields = ['label']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'New Media Type'
+        return context
