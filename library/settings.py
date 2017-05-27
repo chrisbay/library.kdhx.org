@@ -60,9 +60,11 @@ ROOT_URLCONF = 'library.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django_jinja.backend.Jinja2',
-        'DIRS': [os.path.join(BASE_DIR, 'jinja2')],
         'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'OPTIONS': {
+            'match_extension': '.html',
+            'app_dirname': 'templates',
             'environment': 'library.jinja2.environment',
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
