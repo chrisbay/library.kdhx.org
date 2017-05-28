@@ -56,8 +56,8 @@ class AlbumsAppTests(unittest.TestCase):
         header_text = self.browser.find_element_by_xpath('//h1[1]').text
         self.assertIn('New Media Type', header_text)
 
-        album_name_input = self.browser.find_element_by_xpath('//form/input[@name="media-label"]')
-        self.assertEqual(album_name_input.get_attribute('placeholder'), 'Label')
+        album_name_input = self.browser.find_element_by_xpath('//form//input[@name="label"]')
+        self.assertIsNotNone(album_name_input)
 
         # TODO - User enters a label for the new media type, and clicks the Save button
 

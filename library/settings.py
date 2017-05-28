@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import bootstrapform_jinja
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'albums',
     'social_django',
     'django_jinja',
+    'bootstrapform_jinja',
 ]
 
 MIDDLEWARE = [
@@ -59,12 +61,30 @@ ROOT_URLCONF = 'library.urls'
 
 TEMPLATES = [
     {
+        'NAME': 'site_templates',
         'BACKEND': 'django_jinja.backend.Jinja2',
         'APP_DIRS': True,
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'OPTIONS': {
             'match_extension': '.html',
             'app_dirname': 'templates',
+            'environment': 'library.jinja2.environment',
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ]
+        },
+    },
+    {
+        'NAME': 'bootstrapform_templates',
+        'BACKEND': 'django_jinja.backend.Jinja2',
+        'DIRS': [
+            os.path.join(os.path.dirname(bootstrapform_jinja.__file__), 'templates')
+        ],
+        'OPTIONS': {
+            'match_extension': '.jinja',
             'environment': 'library.jinja2.environment',
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',

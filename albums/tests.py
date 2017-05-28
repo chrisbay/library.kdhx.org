@@ -4,6 +4,10 @@ from . import views
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 
+import re
+
+def clean_html(html):
+    return re.sub(r'<input\stype=["\']hidden["\']\sname=["\']csrfmiddlewaretoken["\']\svalue=["\']\w+["\']\s/>', '', html)
 
 class AlbumsTest(TestCase):
 
@@ -43,6 +47,6 @@ class AlbumsTest(TestCase):
         request.method = 'GET'
         view = views.MediaTypeCreate.as_view()
         response = view(request)
-        expected_html = render_to_string('albums/mediatype_form.html', 
-            {'page_title': 'New Media Type'})
-        self.assertEqual(response.rendered_content, expected_html)
+        found = resolve('/albums/media/new/')
+        expected_html = found.func(request).rendered_content
+        self.assertEqual(clean_html(response.rendered_content), clean_html(expected_html))
