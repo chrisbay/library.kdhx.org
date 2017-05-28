@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as ec
 
 import os
 import unittest
-
+import time
 
 class AlbumsAppTests(unittest.TestCase):
 
@@ -58,13 +58,24 @@ class AlbumsAppTests(unittest.TestCase):
         self.browser.get('http://localhost:8000/albums/media/new/')
         self.assertIn('New Media Type', self.browser.title)
 
-        header_text = self.browser.find_element_by_xpath('//h1[1]').text
+        header_text = self.browser.find_element_by_xpath('//h2[1]').text
         self.assertIn('New Media Type', header_text)
 
-        album_name_input = self.browser.find_element_by_xpath('//form//input[@name="label"]')
-        self.assertIsNotNone(album_name_input)
+        label_input = self.browser.find_element_by_xpath('//form//input[@name="label"]')
+        self.assertIsNotNone(label_input)
 
-        # TODO - User enters a label for the new media type, and clicks the Save button
+        # User enters a label for the new media type, and clicks the Save button
+        label = 'LP-' + str(time.time())
+        label_input.click()
+        label_input.send_keys(label)
+        save_btn = self.browser.find_element_by_xpath('//form//input[@type="submit"]')
+        save_btn.click()
+
+        # User sees confirmation message in response
+        message_div = self.browser.find_element_by_css_selector('#messages .alert-success')
+        self.assertIn(label, message_div.text)
+
+        # TODO - delete type from database
 
         # TODO - User is redirected to the Albums Admin page, with a confirmation flash message
     
@@ -75,7 +86,7 @@ class AlbumsAppTests(unittest.TestCase):
         self.browser.get('http://localhost:8000/albums/new/')
         self.assertIn('New Album', self.browser.title)
 
-        header_text = self.browser.find_element_by_xpath('//h1[1]').text
+        header_text = self.browser.find_element_by_xpath('//h2[1]').text
         self.assertIn('New Album', header_text)
 
         album_name_input = self.browser.find_element_by_xpath('//form/input[@name="album-title"]')

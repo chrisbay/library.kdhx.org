@@ -70,16 +70,4 @@ class AlbumsTest(TestCase):
         media_type_1.save()
         media_type_2 = MediaType(label=label)
         self.assertRaises(IntegrityError, media_type_2.save)
-
-
-    def test_can_create_new_media_type_via_form(self):
-        label = 'LP'
-        request = HttpRequest()
-        request.method = 'POST'
-        request.POST['label'] = label
-        create_media_handler = views.MediaTypeCreate.as_view()
-        response = create_media_handler(request)
-        media_type = MediaType.objects.get(label=label)
-        self.assertEqual(label, media_type.label)
-        # TODO - test content of response
         
