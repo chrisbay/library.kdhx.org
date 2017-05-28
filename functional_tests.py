@@ -47,6 +47,11 @@ class AlbumsAppTests(unittest.TestCase):
         cls.browser.quit()
 
 
+    def test_root_url_redirects_to_albums_index(self):
+        self.browser.get('http://localhost:8000')
+        self.assertEqual('http://localhost:8000/albums/', self.browser.current_url)
+
+
     def test_can_add_new_media(self):
 
         # User browses to /albums/media/new/ and sees the new media type form
