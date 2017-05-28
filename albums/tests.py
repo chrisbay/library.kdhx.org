@@ -2,7 +2,9 @@ from django.urls import resolve
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.test import TestCase
+from django.db.utils import IntegrityError
 from albums import views
+from albums.models import MediaType
 import re
 
 
@@ -52,3 +54,32 @@ class AlbumsTest(TestCase):
         expected_html = found.func(request).rendered_content
         self.assertEqual(self.remove_csrf_input(response.rendered_content), 
             self.remove_csrf_input(expected_html))
+
+
+    def test_can_save_new_media_type(self):
+        label = 'CD'
+        media_type = MediaType(label=label)
+        media_type.save()
+        queried_media_type = MediaType.objects.get(label=label)
+        self.assertEqual(media_type, queried_media_type)
+
+
+    def test_media_type_labels_are_unique(self):
+        label = 'CD'
+        media_type_1 = MediaType(label=label)
+        media_type_1.save()
+        media_type_2 = MediaType(label=label)
+        self.assertRaises(IntegrityError, media_type_2.save)
+
+
+    def test_can_create_new_media_type_via_form(self):
+        label = 'LP'
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['label'] = label
+        create_media_handler = views.MediaTypeCreate.as_view()
+        response = create_media_handler(request)
+        media_type = MediaType.objects.get(label=label)
+        self.assertEqual(label, media_type.label)
+        # TODO - test content of response
+        
