@@ -19,13 +19,11 @@ class MediaTypeCreate(SuccessMessageMixin, CreateView):
     success_url = '/albums/'
     success_message = 'New Media Type <strong>%(type_label)s</strong> created'
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'New Media Type'
         return context
 
-    
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(cleaned_data, 
             type_label=self.object.label)
