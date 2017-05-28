@@ -45,6 +45,17 @@
     </header>
 
     <main>
+
+        {% if messages %}
+        <div class="container container-fluid" id="messages">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{ message|safe }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
         <div class="container container-fluid">
             {% block content %}
             {% endblock %}
