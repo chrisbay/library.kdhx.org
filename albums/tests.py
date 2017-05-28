@@ -1,15 +1,16 @@
 from django.urls import resolve
-from django.test import TestCase
-from . import views
 from django.http import HttpRequest
 from django.template.loader import render_to_string
-
+from django.test import TestCase
+from albums import views
 import re
 
-def clean_html(html):
-    return re.sub(r'<input\stype=["\']hidden["\']\sname=["\']csrfmiddlewaretoken["\']\svalue=["\']\w+["\']\s/>', '', html)
 
 class AlbumsTest(TestCase):
+
+    @classmethod
+    def remove_csrf_input(cls, html):
+        return re.sub(r'<input\stype=["\']hidden["\']\sname=["\']csrfmiddlewaretoken["\']\svalue=["\']\w+["\']\s/>', '', html)
 
     def test_albums_root_resolves_to_index(self):
         found = resolve('/albums/')
@@ -49,4 +50,5 @@ class AlbumsTest(TestCase):
         response = view(request)
         found = resolve('/albums/media/new/')
         expected_html = found.func(request).rendered_content
-        self.assertEqual(clean_html(response.rendered_content), clean_html(expected_html))
+        self.assertEqual(self.remove_csrf_input(response.rendered_content), 
+            self.remove_csrf_input(expected_html))
