@@ -65,6 +65,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'library.urls'
 
+
+# TODO - Consider removing context_processors from jinja2 backends
+# per the rec at https://docs.djangoproject.com/en/1.11/topics/templates/
 TEMPLATES = [
     {
         'NAME': 'site_templates',
@@ -74,7 +77,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'templates'),
         ],
         'OPTIONS': {
-            'match_extension': '.html',
+            'match_extension': '.jinja',
             'app_dirname': 'templates',
             'environment': 'library.jinja2.environment',
             'context_processors': [
@@ -93,6 +96,17 @@ TEMPLATES = [
         'OPTIONS': {
             'match_extension': '.jinja',
             'environment': 'library.jinja2.environment',
+        },
+    },
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
         },
     },
 ]

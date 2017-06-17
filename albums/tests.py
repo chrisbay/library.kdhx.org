@@ -25,7 +25,7 @@ class AlbumsTest(TestCase):
         response = views.index(request)
         view_args = {'message': 'Albums Index',
                      'page_title': 'Albums'}
-        expected_html = render_to_string('albums/index.html', view_args)
+        expected_html = render_to_string('albums/index.jinja', view_args)
         self.assertEqual(response.content.decode(), expected_html)
 
     def test_albums_new_resolves_to_new(self):
@@ -35,7 +35,7 @@ class AlbumsTest(TestCase):
     def test_albums_new_returns_correct_html(self):
         request = HttpRequest()
         response = views.new(request)
-        expected_html = render_to_string('albums/new.html',
+        expected_html = render_to_string('albums/new.jinja',
                                          {'page_title': 'New Album'})
         self.assertEqual(response.content.decode(), expected_html)
 

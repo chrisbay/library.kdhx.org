@@ -1,5 +1,6 @@
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 from jinja2 import Environment
 
 

@@ -6,15 +6,16 @@ from albums.models import MediaType
 
 
 def index(request):
-    return render(request, 'albums/index.html', {'page_title': 'Albums'})
+    return render(request, 'albums/index.jinja', {'page_title': 'Albums'})
 
 
 def new(request):
-    return render(request, 'albums/new.html', {'page_title': 'New Album'})
+    return render(request, 'albums/new.jinja', {'page_title': 'New Album'})
 
 
 class MediaTypeCreate(SuccessMessageMixin, CreateView):
     model = MediaType
+    template_name = 'albums/mediatype_form.jinja'
     fields = ['label']
     success_url = '/albums/'
     success_message = 'New Media Type <strong>%(type_label)s</strong> created'
