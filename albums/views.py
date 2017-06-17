@@ -25,5 +25,5 @@ class MediaTypeCreate(SuccessMessageMixin, CreateView):
         return context
 
     def get_success_message(self, cleaned_data):
-        return self.success_message % dict(cleaned_data, 
-            type_label=self.object.label)
+        return self.success_message % dict(cleaned_data,
+                                           type_label=self.object.label)
