@@ -1,3 +1,4 @@
 from django.contrib import admin
+from albums.models import MediaType
 
-# Register your models here.
+admin.site.register(MediaType)

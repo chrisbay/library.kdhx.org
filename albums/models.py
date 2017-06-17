@@ -6,3 +6,6 @@ class MediaType(models.Model):
 
     def __repr__(self):
         return self.label
+
+    def __str__(self):
+        return self.label
