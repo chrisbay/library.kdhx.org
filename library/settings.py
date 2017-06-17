@@ -87,7 +87,8 @@ TEMPLATES = [
         'NAME': 'bootstrapform_templates',
         'BACKEND': 'django_jinja.backend.Jinja2',
         'DIRS': [
-            os.path.join(os.path.dirname(bootstrapform_jinja.__file__), 'templates')
+            os.path.join(os.path.dirname(bootstrapform_jinja.__file__),
+                         'templates')
         ],
         'OPTIONS': {
             'match_extension': '.jinja',
@@ -119,16 +120,20 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': ('django.contrib.auth.password_validation.'
+                 'UserAttributeSimilarityValidator'),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': ('django.contrib.auth.password_validation.'
+                 'MinimumLengthValidator'),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': ('django.contrib.auth.password_validation.'
+                 'CommonPasswordValidator'),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': ('django.contrib.auth.password_validation.'
+                 'NumericPasswordValidator'),
     },
 ]
 
@@ -159,15 +164,17 @@ STATICFILES_DIRS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Django Social Auth Config
 
-AUTHENTICATION_BACKENDS = ( 
+AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
 )
 
-LOGIN_URL          = '/login/google-oauth2/'       
-LOGIN_ERROR_URL    = '/login-error/'
+LOGIN_URL = '/login/google-oauth2/'
+LOGIN_ERROR_URL = '/login-error/'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY      = '326758487663-bto5rf6c4g4jva1v6beteu2ieg6to012.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET  = 'jgHIVsl7gyP2cI2lRM3cFbPJ'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ('326758487663-'
+                                 'bto5rf6c4g4jva1v6beteu2ieg6to012'
+                                 '.apps.googleusercontent.com')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'jgHIVsl7gyP2cI2lRM3cFbPJ'
 SOCIAL_AUTH_GOOGLE_OAUTH2_WHITE_LISTED_DOMAINS = ['kdhx.org']
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/albums'
