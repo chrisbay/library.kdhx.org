@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'albums',
+    'classification',
     'social_django',
     'django_jinja',
     'bootstrapform_jinja',
