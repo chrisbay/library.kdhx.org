@@ -45,12 +45,23 @@ class Artist(models.Model):
         return self.display_name
 
 
+class Genre(models.Model):
+    label = models.CharField(max_length=60)
+
+    def __repr__(self):
+        return '<Genre {0}>'.format(self.label)
+
+    def __str__(self):
+        return self.label
+
+
 class Album(models.Model):
     title = models.CharField(max_length=256)
     artist = models.ForeignKey(Artist, on_delete=models.PROTECT)
     label = models.ForeignKey(RecordLabel,
                               on_delete=models.PROTECT, blank=True)
     media = models.ForeignKey(MediaType, on_delete=models.PROTECT)
+    genre = models.ForeignKey(Genre, on_delete=models.PROTECT)
 
     @property
     def file_under(self):
