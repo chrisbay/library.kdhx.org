@@ -22,3 +22,14 @@ class GenreLabel(models.Model):
 
     def __str__(self):
         return self.genre.label
+
+
+class LibraryAlbum(models.Model):
+    album = models.ForeignKey(Album, on_delete=models.PROTECT)
+    location = models.ForeignKey(Location, on_delete=models.PROTECT)
+
+    def __repr__(self):
+        return '<LibraryAlbum {0} ({1})>'.format(self.album, self.location)
+
+    def __str__(self):
+        return '{0} ({1})'.format(self.album, self.location)
