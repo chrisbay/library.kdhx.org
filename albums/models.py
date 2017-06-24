@@ -55,6 +55,16 @@ class Genre(models.Model):
         return self.label
 
 
+class Location(models.Model):
+    label = models.CharField(max_length=60, unique=True)
+
+    def __repr__(self):
+        return '<Location {0}>'.format(self.label)
+
+    def __str__(self):
+        return self.label
+
+
 class Album(models.Model):
     title = models.CharField(max_length=256)
     artist = models.ForeignKey(Artist, on_delete=models.PROTECT)
@@ -62,6 +72,7 @@ class Album(models.Model):
                               on_delete=models.PROTECT, blank=True)
     media = models.ForeignKey(MediaType, on_delete=models.PROTECT)
     genre = models.ForeignKey(Genre, on_delete=models.PROTECT)
+    location = models.ForeignKey(Location, on_delete=models.PROTECT)
 
     @property
     def file_under(self):
