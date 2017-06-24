@@ -73,6 +73,7 @@ class Album(models.Model):
     media = models.ForeignKey(MediaType, on_delete=models.PROTECT)
     genre = models.ForeignKey(Genre, on_delete=models.PROTECT)
     location = models.ForeignKey(Location, on_delete=models.PROTECT)
+    created = models.DateTimeField(auto_now_add=True)
 
     @property
     def file_under(self):
