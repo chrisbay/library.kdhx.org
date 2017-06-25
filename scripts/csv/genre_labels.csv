@@ -1,0 +1,33 @@
+1,Accapella,FFF,FFF
+2,Americana-General,FF0,FF0
+3,Bluegrass,FF0,00F
+4,Country,FF0,630
+5,Blues,00F,00F
+6,Classical,888,888
+7,Jazz,000,000
+9,Louisiana,0F0,0F0
+10,Rock,F00,F00
+11,Rap and Hip Hop,F00,00F
+12,Reggae,F00,0F0
+13,Ska,F00,630
+14,Spoken Word,630,630
+15,World Folk-African,FFF,000
+16,World Folk-Asian,FFF,F80
+17,World Folk-Island,FFF,888
+18,World Folk-Hispanic,FFF,60C
+19,World Folk-Celtic,FFF,00F
+20,World Folk-European,FFF,630
+21,World Folk-Other,FFF,FF0
+29,World Beat-African,0F0,000
+30,World Beat-Asian,0F0,F80
+31,World Beat-Island,0F0,888
+32,World Beat-Hispanic,0F0,60C
+33,World Beat-Celtic,0F0,00F
+34,World Beat-European,0F0,630
+35,World Beat-Other,0F0,FF0
+36,World Folk-Mideast,FFF,F00
+37,World Beat-Mideast,0F0,F00
+38,Soundtracks,888,630
+39,Native American,FF0,0F0
+40,Brazilian,60C,0F0
+8,Latin Jazz,000,60C

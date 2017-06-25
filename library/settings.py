@@ -46,9 +46,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'albums',
     'classification',
+    'data',
     'social_django',
     'django_jinja',
     'bootstrapform_jinja',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
