@@ -1,5 +1,5 @@
 main {
-    padding: 20px 0;
+    padding: 1.5em 0;
 }
 
 .navbar-brand img {
@@ -10,4 +10,8 @@ main {
     .container {
         width: 100%;
     }
+}
+
+table.album-table {
+    margin: 1.5em 0;
 }

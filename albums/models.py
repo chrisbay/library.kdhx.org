@@ -38,6 +38,12 @@ class Artist(models.Model):
             return '{0} {1}'.format(self.first, self.name)
         return self.name
 
+    @property
+    def file_under(self):
+        if not self.name:
+            return self.last[0].upper()
+        return self.name[0].upper()
+
     def __repr__(self):
         return '<Artist {0}>'.format(self.display_name)
 
@@ -74,12 +80,6 @@ class Album(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.PROTECT)
     location = models.ForeignKey(Location, on_delete=models.PROTECT)
     created = models.DateTimeField(auto_now_add=True)
-
-    @property
-    def file_under(self):
-        if not self.name:
-            return self.last[0].upper()
-        return self.name[0].upper()
 
     def __repr__(self):
         return '<Album {0} - {1}>'.format(self.artist.display_name, self.title)
