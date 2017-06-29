@@ -1,0 +1,14 @@
+{% extends 'base.jinja' %}
+
+{% block content %}
+<div id="album-detail">
+    <h2>Album Details</h2>
+    <div id="album-detail-header"><b>{{album.title}}</b> <br>by <b>{{album.artist.display_name}}</b></div>
+    <ul>
+        <li><b>Label:</b> {{album.label.name}}</li>
+        <li><b>Genre:</b> {{album.genre.label}}</li>
+        <li><b>Location:</b> {{album.location.label}}</li>
+        <li><b>Added:</b> {{album.created.strftime('%B %-d, %Y')}} </li>
+    </ul>
+</div>
+{% endblock %}

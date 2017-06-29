@@ -15,3 +15,17 @@ main {
 table.album-table {
     margin: 1.5em 0;
 }
+
+#album-detail {}
+
+#album-detail-header {
+    margin: 1.5em 0;
+}
+
+#album-detail li {
+    list-style-type: none;
+}
+
+#album-detail ul {
+    padding: 0;
+}

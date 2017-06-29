@@ -35,7 +35,7 @@ class Artist(models.Model):
     @property
     def display_name(self):
         if not self.name:
-            return '{0} {1}'.format(self.first, self.name)
+            return '{0} {1}'.format(self.first, self.last)
         return self.name
 
     @property
@@ -80,6 +80,9 @@ class Album(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.PROTECT)
     location = models.ForeignKey(Location, on_delete=models.PROTECT)
     created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created"]
 
     def __repr__(self):
         return '<Album {0} - {1}>'.format(self.artist.display_name, self.title)
