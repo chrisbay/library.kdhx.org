@@ -54,30 +54,6 @@ class AlbumsAppTests(unittest.TestCase):
         self.assertEqual(self.live_server_url+'/albums/',
                          self.browser.current_url)
 
-    def test_can_add_new_media(self):
-
-        # User browses to /albums/media/new/ and sees the new media type form
-        self.browser.get(self.live_server_url+'/albums/media/new/')
-        self.assertIn('New Media Type', self.browser.title)
-        header_text = self.browser.find_element_by_xpath('//h2[1]').text
-        self.assertIn('New Media Type', header_text)
-        label_input = self.browser.find_element_by_xpath(
-            '//form//input[@name="label"]')
-        self.assertIsNotNone(label_input)
-
-        # User enters a label for the new media type, clicks the Save button
-        label = 'LP-' + str(time.time())
-        label_input.click()
-        label_input.send_keys(label)
-        save_btn = self.browser.find_element_by_xpath(
-            '//form//input[@type="submit"]')
-        save_btn.click()
-
-        # User sees confirmation message in response
-        message_div = self.browser.find_element_by_css_selector(
-            '#messages .alert-success')
-        self.assertIn(label, message_div.text)
-
     def test_can_add_new_album(self):
 
         # User browses to /albums/new/ and sees the new album form
@@ -86,9 +62,7 @@ class AlbumsAppTests(unittest.TestCase):
         header_text = self.browser.find_element_by_xpath('//h2[1]').text
         self.assertIn('New Album', header_text)
         album_name_input = self.browser.find_element_by_xpath(
-            '//form/input[@name="album-title"]')
-        self.assertEqual(album_name_input.get_attribute('placeholder'),
-                         'Album Title')
+            '//form//input[@name="title"]')
 
         # TODO - User enters data for a new album, and clicks the Save button
 
