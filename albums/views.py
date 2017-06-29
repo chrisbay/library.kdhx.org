@@ -8,6 +8,7 @@ from albums.models import Album
 
 class IndexView(ListView):
     template_name = 'albums/album_list.jinja'
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -15,7 +16,7 @@ class IndexView(ListView):
         return context
 
     def get_queryset(self):
-        return Album.objects.all()
+        return Album.objects.order_by('-created')[:15]
 
 
 class AlbumCreate(SuccessMessageMixin, CreateView):
