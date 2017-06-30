@@ -46,3 +46,20 @@ class AlbumCreate(SuccessMessageMixin, CreateView):
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(cleaned_data,
                                            album=self.object)
+
+
+class AlbumUpdate(UpdateView):
+    model = Album
+    template_name = 'albums/album_form.jinja'
+    fields = ['title', 'artist', 'label', 'media', 'genre', 'location']
+    success_url = '/albums/'
+    success_message = 'Album updated: <strong>%(album)s</strong>'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Edit Album'
+        return context
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(cleaned_data,
+                                           album=self.object)

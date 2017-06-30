@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^$', views.AlbumList.as_view(), name='album-list'),
     url(r'^detail/([-\w]+)$', views.AlbumDetail.as_view(), name='album-detail'),
     url(r'^new/$', views.AlbumCreate.as_view(), name='album-new'),
+    url(r'^edit/(?P<pk>[-\w]+)$', views.AlbumUpdate.as_view(), name='album-edit'),
 ]
