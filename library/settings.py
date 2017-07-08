@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'albums',
     'classification',
     'data',
+    'profiles',
     'social_django',
     'django_jinja',
     'bootstrapform_jinja',
@@ -155,6 +156,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'profiles.LibraryUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+from . import ajax
 
 app_name = 'albums'
 
@@ -8,4 +9,5 @@ urlpatterns = [
     url(r'^detail/([-\w]+)$', views.AlbumDetail.as_view(), name='album-detail'),
     url(r'^new/$', views.AlbumCreate.as_view(), name='album-new'),
     url(r'^edit/(?P<pk>[-\w]+)$', views.AlbumUpdate.as_view(), name='album-edit'),
+    url(r'^star/(?P<album_id>[\d]+)$', ajax.toggle_album_star, name='star-album'),
 ]

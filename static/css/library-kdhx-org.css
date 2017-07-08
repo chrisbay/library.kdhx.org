@@ -19,7 +19,24 @@ table.album-table {
 #album-detail {}
 
 #album-detail-header {
-    margin: 1.5em 0;
+    margin: 0.8em 0;
+    font-size: 1.3em;
+    font-weight: 300;
+}
+
+#album-detail-header .album-title {
+    font-style: italic;
+}
+
+#album-detail-header .album-title,
+#album-detail-header .album-artist {
+    display: inline-block;
+    font-weight: 500;
+    margin: 0 0.3em;
+}
+
+#album-detail-header span:first-child {
+    margin-left: 0;
 }
 
 #album-detail li {
@@ -28,4 +45,12 @@ table.album-table {
 
 #album-detail ul {
     padding: 0;
+}
+
+.star-album {
+    color: gray;
+}
+
+.star-album .fa-star {
+    color: gold;
 }

@@ -4,7 +4,17 @@
 
 <div id="album-detail">
     <h2>Album Details</h2>
-    <div id="album-detail-header"><b>{{album.title}}</b> <br>by <b>{{album.artist.display_name}}</b></div>
+    <div id="album-detail-header">
+        <span class="album-title">{{album.title}}</span> by 
+        <span class="album-artist">{{album.artist.display_name}}</span>
+        <a href="#" class="star-album" id="star-album-{{album.id}}">
+        {% if is_starred %}
+        <i class="fa fa-star" aria-hidden="true"></i>
+        {% else %}
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        {% endif %}
+        </a>
+    </div>
     <ul>
         <li><b>Label:</b> {{album.label_display_text}}</li>
         <li><b>Genre:</b> {{album.genre.label}}</li>

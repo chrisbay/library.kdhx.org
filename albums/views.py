@@ -33,6 +33,12 @@ class AlbumDetail(ContextMixin, DetailView):
     def get_object(self):
         return get_object_or_404(Album, id=int(self.args[0]))
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_albums = self.request.user.saved_albums.all()
+        context['is_starred'] = self.object in user_albums
+        return context
+
 
 class AlbumCreate(ContextMixin, RevisionMixin, PermissionRequiredMixin,
                   SuccessMessageMixin, CreateView):

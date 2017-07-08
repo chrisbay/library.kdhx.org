@@ -93,4 +93,4 @@ class Album(models.Model):
         return '<Album {0} - {1}>'.format(self.artist.display_name, self.title)
 
     def __str__(self):
-        return '{0} - {1}'.format(self.artist.display_name, self.title)
+        return '{0} - {1}'.format(self.artist.display_name, self.title)    
