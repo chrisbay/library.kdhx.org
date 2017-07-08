@@ -42,6 +42,8 @@ class Artist(models.Model):
     def file_under(self):
         if not self.name:
             return self.last[0].upper()
+        elif self.name == 'Various Artists':
+            return '#'
         return self.name[0].upper()
 
     def __repr__(self):
