@@ -39,7 +39,7 @@ class AlbumCreate(ContextMixin, PermissionRequiredMixin,
     permission_required = 'albums.add_album'
     model = Album
     template_name = 'albums/album_form.jinja'
-    fields = ['title', 'artist', 'label', 'media', 'genre', 'location']
+    fields = ['title', 'artist', 'labels', 'media', 'genre', 'location']
     success_url = '/albums/'
     success_message = 'New album created: <strong>%(album)s</strong>'
 
@@ -54,7 +54,7 @@ class AlbumUpdate(ContextMixin, PermissionRequiredMixin,
     permission_required = 'albums.change_album'
     model = Album
     template_name = 'albums/album_form.jinja'
-    fields = ['title', 'artist', 'label', 'media', 'genre', 'location']
+    fields = ['title', 'artist', 'labels', 'media', 'genre', 'location']
     success_url = '/albums/'
     success_message = 'Album updated: <strong>%(album)s</strong>'
 

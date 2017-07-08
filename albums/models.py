@@ -76,8 +76,7 @@ class Location(models.Model):
 class Album(models.Model):
     title = models.CharField(max_length=256)
     artist = models.ForeignKey(Artist, on_delete=models.PROTECT)
-    label = models.ForeignKey(RecordLabel,
-                              on_delete=models.PROTECT, blank=True)
+    labels = models.ManyToManyField(RecordLabel)
     media = models.ForeignKey(MediaType, on_delete=models.PROTECT)
     genre = models.ForeignKey(Genre, on_delete=models.PROTECT)
     location = models.ForeignKey(Location, on_delete=models.PROTECT)
@@ -85,6 +84,10 @@ class Album(models.Model):
 
     class Meta:
         ordering = ["-created"]
+
+    @property
+    def label_display_text(self):
+        return ' / '.join([label.name for label in self.labels.all()])
 
     def __repr__(self):
         return '<Album {0} - {1}>'.format(self.artist.display_name, self.title)

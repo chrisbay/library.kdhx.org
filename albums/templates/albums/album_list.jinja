@@ -28,7 +28,7 @@
             <td>{{album.artist.display_name}}</td>
             <td><a href="{{ url('albums:album-detail', args=[album.id]) }}">{{album.title}}</a></td>
             <td>{{album.genre.label}}</td>
-            <td>{{album.label.name}}</td>
+            <td>{{album.label_display_text}}</td>
         </tr>
         {% endfor %}
     </tbody>
