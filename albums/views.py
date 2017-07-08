@@ -48,7 +48,8 @@ class AlbumCreate(ContextMixin, PermissionRequiredMixin,
                                            album=self.object)
 
 
-class AlbumUpdate(ContextMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class AlbumUpdate(ContextMixin, PermissionRequiredMixin,
+                  SuccessMessageMixin, UpdateView):
     title = 'Edit Album'
     permission_required = 'albums.change_album'
     model = Album
