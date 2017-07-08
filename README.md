@@ -42,3 +42,9 @@ $ python manage.py runserver
 ```nohighlight
 $ conda env export > environment.yml
 ```
+
+## Importing Data
+
+```nohighlight
+$ ./manage.py runscript import_genres
+```
