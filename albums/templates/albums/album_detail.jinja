@@ -16,7 +16,10 @@
 
 {% if user.has_perm('albums.change_album') %}
 <div>
-    <a href="{{ url('albums:album-edit', args=[album.id]) }}" class="btn btn-primary">Edit Album</a>
+    <a href="{{ url('albums:album-edit', args=[album.id]) }}" class="btn btn-primary">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+        Edit Album
+    </a>
 </div>
 {% endif %}
 
