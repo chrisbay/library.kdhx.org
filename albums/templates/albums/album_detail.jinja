@@ -2,13 +2,6 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="col"></div>
-    <div class="col-2">
-        <a href="{{ url('albums:album-edit', args=[album.id]) }}" class="btn btn-primary">Edit Album</a>
-    </div>
-</div>
-
 <div id="album-detail">
     <h2>Album Details</h2>
     <div id="album-detail-header"><b>{{album.title}}</b> <br>by <b>{{album.artist.display_name}}</b></div>
@@ -19,4 +12,11 @@
         <li><b>Added:</b> {{album.created.strftime('%B %-d, %Y')}} </li>
     </ul>
 </div>
+
+{% if user.has_perm('albums.change_album') %}
+<div>
+    <a href="{{ url('albums:album-edit', args=[album.id]) }}" class="btn btn-primary">Edit Album</a>
+</div>
+{% endif %}
+
 {% endblock %}

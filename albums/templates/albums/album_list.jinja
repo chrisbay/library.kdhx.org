@@ -2,12 +2,14 @@
 
 {% block content %}
 
+{% if user.has_perm('albums.add_album') %}
 <div class="row">
     <div class="col"></div>
     <div class="col-2">
         <a href="{{ url('albums:album-new') }}" class="btn btn-primary">Add Album</a>
     </div>
 </div>
+{% endif %}
 
 <table class="table table-hover album-table">
     <thead class="thead-default">

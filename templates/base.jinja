@@ -37,9 +37,12 @@
                         <a class="nav-link" href="#">Labels</a>
                     </li-->
                 </ul>
+                {% if user %}
                 <ul class="navbar-nav navbar-right">
+                    <li>{{ user.username }}</li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('gauth_logout') }}">Sign out</a></li>
                 </ul>
+                {% endif %}
             </div>
         </nav>
     </header>
