@@ -46,6 +46,11 @@
                             {{ user.username }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{ url('profile:my-albums') }}">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                My Albums
+                            </a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ url('gauth_logout') }}">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                                 Sign out

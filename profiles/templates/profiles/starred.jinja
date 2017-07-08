@@ -1,0 +1,30 @@
+{% extends 'base.jinja' %}
+
+{% block content %}
+
+<h2>{{title}}</h2>
+
+<table class="table table-hover album-table">
+    <thead class="thead-default">
+        <tr>
+            <th>Filed Under</th>
+            <th>Artist</th>
+            <th>Album</th>
+            <th>Genre</th>
+            <th>Label</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for album in album_list %}
+        <tr>
+            <th scope="row">{{album.artist.file_under}}</th>
+            <td>{{album.artist.display_name}}</td>
+            <td><a href="{{ url('albums:album-detail', args=[album.id]) }}">{{album.title}}</a></td>
+            <td>{{album.genre.label}}</td>
+            <td>{{album.label_display_text}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

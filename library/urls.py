@@ -25,5 +25,6 @@ urlpatterns = [
         name='home-page-redirect'),
     url(r'^logout/$', logout, {'next_page': '/'}, name='gauth_logout'),
     url(r'^albums/', include('albums.urls', namespace='albums')),
+    url(r'^profile/', include('profiles.urls', namespace='profile')),
     url(r'^admin/', admin.site.urls),
 ]
