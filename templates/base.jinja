@@ -39,8 +39,14 @@
                 </ul>
                 {% if user %}
                 <ul class="navbar-nav navbar-right">
-                    <li>{{ user.username }}</li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('gauth_logout') }}">Sign out</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{ url('gauth_logout') }}">Sign out</a>
+                        </div>
+                    </li>
                 </ul>
                 {% endif %}
             </div>
