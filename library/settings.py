@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django_jinja',
     'bootstrapform_jinja',
     'django_extensions',
+    'reversion',
 ]
 
 MIDDLEWARE = [

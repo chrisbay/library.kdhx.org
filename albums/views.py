@@ -4,6 +4,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
+from reversion.views import RevisionMixin
 from albums.models import Album
 
 
@@ -33,7 +34,7 @@ class AlbumDetail(ContextMixin, DetailView):
         return get_object_or_404(Album, id=int(self.args[0]))
 
 
-class AlbumCreate(ContextMixin, PermissionRequiredMixin,
+class AlbumCreate(ContextMixin, RevisionMixin, PermissionRequiredMixin,
                   SuccessMessageMixin, CreateView):
     title = 'New Album'
     permission_required = 'albums.add_album'
@@ -48,7 +49,7 @@ class AlbumCreate(ContextMixin, PermissionRequiredMixin,
                                            album=self.object)
 
 
-class AlbumUpdate(ContextMixin, PermissionRequiredMixin,
+class AlbumUpdate(ContextMixin, RevisionMixin, PermissionRequiredMixin,
                   SuccessMessageMixin, UpdateView):
     title = 'Edit Album'
     permission_required = 'albums.change_album'
