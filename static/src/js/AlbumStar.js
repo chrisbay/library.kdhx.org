@@ -5,10 +5,10 @@ class AlbumStar extends React.Component {
   constructor(props) {
     super(props);
     let parts = window.location.pathname.split('/');
-    let album_id = parts[parts.length - 1];
+    let albumId = props.albumId;
     let iconClasses = props.starred ? "fa fa-star" : "fa fa-star-o";
     this.state = {
-      url: "/albums/star/"+album_id,
+      url: "/albums/star/"+albumId,
       starred: props.starred,
       iconClasses: iconClasses,
     };
@@ -38,7 +38,7 @@ class AlbumStar extends React.Component {
 
   render() {
     return (
-      <a href="#" className="star-album" onClick={() => this.toggleStar()}>
+      <a className="star-album" onClick={() => this.toggleStar()}>
         <i className={this.state.iconClasses} aria-hidden="true"></i>
       </a>
     )

@@ -17,6 +17,7 @@
 <table class="table table-hover album-table">
     <thead class="thead-default">
         <tr>
+            {% if user %}<th></th>{% endif %}
             <th>Filed Under</th>
             <th>Artist</th>
             <th>Album</th>
@@ -27,6 +28,14 @@
     <tbody>
         {% for album in album_list %}
         <tr>
+            {% if user %}
+            <td>
+                <div class="album-star-control" 
+                        data-album-id="{{album.id}}" 
+                        data-starred="{{ (album in user_albums)|lower }}">
+                </div>
+            </td>
+            {% endif %}
             <th scope="row">{{album.artist.file_under}}</th>
             <td>{{album.artist.display_name}}</td>
             <td><a href="{{ url('albums:album-detail', args=[album.id]) }}">{{album.title}}</a></td>

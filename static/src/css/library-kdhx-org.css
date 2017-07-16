@@ -41,3 +41,9 @@ table.album-table {
 .star-album .fa-star {
     color: gold;
 }
+.album-star-control {
+    text-align: center;
+}
+.album-star-control:hover {
+    cursor: pointer;
+}
