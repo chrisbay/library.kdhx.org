@@ -8,24 +8,31 @@ from reversion.views import RevisionMixin
 from albums.models import Album
 
 
-class ContextMixin():
+class ContextMixin:
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.title
+        return context
+
+
+class UserContextMixin(ContextMixin):
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
         context['user_albums'] = self.request.user.saved_albums.all()
         return context
 
 
-class AlbumList(ContextMixin, ListView):
+class AlbumList(UserContextMixin, ListView):
     title = 'Albums'
     template_name = 'albums/album_list.jinja'
     paginate_by = 20
     model = Album
 
 
-class AlbumDetail(ContextMixin, DetailView):
+class AlbumDetail(UserContextMixin, DetailView):
     title = 'Album Detail'
     template_name = 'albums/album_detail.jinja'
     model = Album
@@ -35,7 +42,7 @@ class AlbumDetail(ContextMixin, DetailView):
         return get_object_or_404(Album, id=int(self.args[0]))
 
 
-class AlbumCreate(ContextMixin, RevisionMixin, PermissionRequiredMixin,
+class AlbumCreate(PermissionRequiredMixin, ContextMixin, RevisionMixin,
                   SuccessMessageMixin, CreateView):
     title = 'New Album'
     permission_required = 'albums.add_album'
@@ -50,7 +57,7 @@ class AlbumCreate(ContextMixin, RevisionMixin, PermissionRequiredMixin,
                                            album=self.object)
 
 
-class AlbumUpdate(ContextMixin, RevisionMixin, PermissionRequiredMixin,
+class AlbumUpdate(PermissionRequiredMixin, ContextMixin, RevisionMixin,
                   SuccessMessageMixin, UpdateView):
     title = 'Edit Album'
     permission_required = 'albums.change_album'
