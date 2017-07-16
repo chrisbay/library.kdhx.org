@@ -6,6 +6,7 @@ admin.site.register(MediaType)
 admin.site.register(RecordLabel)
 admin.site.register(Artist)
 admin.site.register(Location)
+admin.site.register(Genre)
 
 
 @admin.register(Album)
