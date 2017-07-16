@@ -88,6 +88,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'profiles.context_processors.login_url',
             ]
         },
     },
@@ -205,5 +206,7 @@ SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/albums'
 LOGIN_EXEMPT_URLS = [
     LOGIN_ERROR_URL.lstrip('/'),
     'complete/google-oauth2/',
-    'admin/*'
+    'admin/*',
+    'albums/',
+    'albums/detail/',
 ]

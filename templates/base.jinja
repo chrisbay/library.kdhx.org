@@ -38,7 +38,7 @@
                         <a class="nav-link" href="#">Labels</a>
                     </li-->
                 </ul>
-                {% if user %}
+                {% if user.is_authenticated %}
                 <ul class="navbar-nav navbar-right">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -53,9 +53,18 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ url('gauth_logout') }}">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                Sign out
+                                Log Out
                             </a>
                         </div>
+                    </li>
+                </ul>
+                {% else %}
+                <ul class="navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ LOGIN_URL }}">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            Log In
+                        </a>
                     </li>
                 </ul>
                 {% endif %}

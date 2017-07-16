@@ -21,7 +21,8 @@ class UserContextMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
-        context['user_albums'] = self.request.user.saved_albums.all()
+        if self.request.user.is_authenticated:
+            context['user_albums'] = self.request.user.saved_albums.all()
         return context
 
 

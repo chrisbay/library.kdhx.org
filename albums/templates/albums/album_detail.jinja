@@ -7,7 +7,7 @@
     <div id="album-detail-header">
         <span class="album-title">{{album.title}}</span> by 
         <span class="album-artist">{{album.artist.display_name}}</span>
-        {% if user %}
+        {% if user.is_authenticated %}
             <span class="album-star-control" 
                   data-album-id="{{album.id}}" 
                   data-starred="{{ (album in user_albums)|lower }}">
