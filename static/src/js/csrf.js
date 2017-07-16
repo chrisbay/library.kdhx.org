@@ -14,7 +14,7 @@ function getCookie(name) {
     return cookieValue;
 }
 
-module.exports.addHeader = function (headers) {
+export function addHeader (headers) {
   headers = headers ? headers : new Headers();
   headers.append("X-CSRFToken", getCookie('csrftoken'));
   return headers;
