@@ -54,16 +54,19 @@ table.album-table {
 .form-toggle i {
     margin-right: 5px;
 }
-.collapsible-form-group label {
-    display: none;
-}
 .collapsible-form-group::after {
     font-style: italic;
     font-size: .8em;
 }
-#new_artist_group::after {
-    content: "Only create a new artist if the desired artist is not available above";
+.collapsible-form-group {
+    padding: 1rem;
+    background-color: #efefef;
+    border-radius: 10px;
+    margin-bottom: 1rem;
 }
-#new_label_group::after {
-    content: "Only create a new label if the desired label is not available above";
+#artist-form-group-wrapper::after {
+    content: "* Only create a new artist if the desired artist is not available above";
+}
+#label-form-group-wrapper::after {
+    content: "* Only create a new label if the desired label is not available above";
 }

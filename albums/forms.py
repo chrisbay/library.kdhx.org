@@ -8,13 +8,16 @@ DEFAULT_LOCATION_ID = 2
 
 
 class AlbumCreateForm(forms.ModelForm):
-    new_artist = forms.CharField(required=False)
-    new_label = forms.CharField(required=False)
+    new_artist_first = forms.CharField(required=False, label="Artist First")
+    new_artist_last = forms.CharField(required=False, label="Artist Last")
+    new_artist_name = forms.CharField(required=False, label="Artist Name")
+    new_label = forms.CharField(required=False, label="New Record Label")
 
     class Meta:
         model = Album
-        fields = ['title', 'artist', 'new_artist', 'labels', 'new_label',
-                  'media', 'genre', 'location']
+        fields = ['title', 'artist', 'new_artist_first', 'new_artist_last',
+                  'new_artist_name', 'labels', 'new_label', 'media', 'genre',
+                  'location']
 
     def __init__(self, *args, **kwargs):
         super(AlbumCreateForm, self).__init__(*args, **kwargs)
@@ -28,8 +31,14 @@ class AlbumCreateForm(forms.ModelForm):
         super(AlbumCreateForm, self).clean()
         album = self.cleaned_data
         validation_errors = ""
-        if not album['artist'] and not album['new_artist']:
-            validation_errors = 'No artist specified'
+        new_artist_fields_present = ((album['new_artist_first'] and
+                                     album['new_artist_last']) or
+                                     album['new_artist_name'])
+        if not album['artist'] and not new_artist_fields_present:
+            validation_errors = ('Artist not specified, or info missing. '
+                                 'If creating a new artist, '
+                                 'provide both Artist First and Artist last, '
+                                 'or Artist Name.')
         if not album['labels'] and not album['new_label']:
             validation_errors = 'No label(s) specified'
         if validation_errors:
@@ -39,11 +48,16 @@ class AlbumCreateForm(forms.ModelForm):
         album = super(AlbumCreateForm, self).save(commit=False)
         album_data = self.cleaned_data
         if not album_data['artist']:
-            new_artist = Artist(name=album_data['new_artist'])
+            kwargs = {'first': album_data['new_artist_first'],
+                      'last': album_data['new_artist_last'],
+                      'name': album_data['new_artist_name']}
+            new_artist = Artist.create(**kwargs)
             new_artist.save()
             album.artist = new_artist
         # need to save before potentially modifying the labels QuerySet
-        album.save() 
+        album.save()
+        self.save_m2m()
+        print(album.labels)
         if not album_data['labels']:
             new_label = RecordLabel(name=album_data['new_label'])
             new_label.save()
