@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from reversion.views import RevisionMixin
 from albums.models import Album
+from albums.forms import AlbumCreateForm
 
 
 class ContextMixin:
@@ -49,13 +50,17 @@ class AlbumCreate(PermissionRequiredMixin, ContextMixin, RevisionMixin,
     permission_required = 'albums.add_album'
     model = Album
     template_name = 'albums/album_form.jinja'
-    fields = ['title', 'artist', 'labels', 'media', 'genre', 'location']
+    form_class = AlbumCreateForm
     success_url = '/albums/'
     success_message = 'New album created: <strong>%(album)s</strong>'
 
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(cleaned_data,
                                            album=self.object)
+
+    def form_valid(self, form):
+        # TODO - check for and create new artist or label as necessary
+        return super(AlbumCreate, self).form_valid(form)
 
 
 class AlbumUpdate(PermissionRequiredMixin, ContextMixin, RevisionMixin,

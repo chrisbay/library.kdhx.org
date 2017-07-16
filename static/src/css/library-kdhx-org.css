@@ -47,3 +47,23 @@ table.album-table {
 .album-star-control:hover {
     cursor: pointer;
 }
+.form-toggle {
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+}
+.form-toggle i {
+    margin-right: 5px;
+}
+.collapsible-form-group label {
+    display: none;
+}
+.collapsible-form-group::after {
+    font-style: italic;
+    font-size: .8em;
+}
+#new_artist_group::after {
+    content: "Only create a new artist if the desired artist is not available above";
+}
+#new_label_group::after {
+    content: "Only create a new label if the desired label is not available above";
+}

@@ -15,3 +15,32 @@
 </form>
 
 {% endblock %}
+
+{% block page_scripts %}
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+    function setUpGroupToggles(slug) {
+        var form_group = $('#id_new_'+slug).parents('.form-group');
+        var form_group_id = 'new_'+slug+'_group';
+        form_group.attr('id', form_group_id);
+        form_group.addClass('collapse collapsible-form-group');
+        $('<div class="form-toggle"><a href="#"><i class="fa fa-plus-circle"></i>New '+slug+'</a></div>')
+            .insertBefore(form_group)
+            .click(function(e) {
+                e.preventDefault();
+                $('#'+form_group_id).collapse('toggle');
+                var iconNode = $('i', this);
+                iconNode.toggleClass('fa-plus-circle');
+                iconNode.toggleClass('fa-minus-circle');
+            });
+    }
+
+    setUpGroupToggles('label', 'id_labels');
+    setUpGroupToggles('artist', 'id_artist');
+
+});
+</script>
+
+{% endblock %}
