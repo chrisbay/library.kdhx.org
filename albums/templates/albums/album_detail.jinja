@@ -6,7 +6,9 @@
     <h2>Album Details</h2>
     <div id="album-detail-header">
         <span class="album-title">{{album.title}}</span> by 
-        <span class="album-artist">{{album.artist.display_name}}</span>
+        <span class="album-artist">
+            <a href="{{ url('albums:albums-by-artist', args=[album.artist.id]) }}">{{album.artist.display_name}}</a>
+        </span>
         {% if user.is_authenticated %}
             <span class="album-star-control" 
                   data-album-id="{{album.id}}" 
@@ -15,7 +17,12 @@
         {% endif %}
     </div>
     <ul>
-        <li><b>Label:</b> {{album.label_display_text}}</li>
+        <li><b>Label:</b> 
+            {% for label in album.labels.all() %}
+                <a href="{{ url('albums:albums-by-label', args=[label.id]) }}">{{label.name}}</a>
+                {% if not loop.last %} / {% endif %}
+            {% endfor %}
+        </li>
         <li><b>Genre:</b> {{album.genre.label}}</li>
         <li><b>Location:</b> {{album.location.label}}</li>
         <li><b>Media:</b> {{album.media.label}}</li>
