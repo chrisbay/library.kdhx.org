@@ -5,8 +5,11 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from reversion.views import RevisionMixin
-from albums.models import Album
+from albums.models import Album, RecordLabel
 from albums.forms import AlbumCreateForm
+
+
+PAGE_SIZE = 20
 
 
 class ContextMixin:
@@ -30,7 +33,7 @@ class UserContextMixin(ContextMixin):
 class AlbumList(UserContextMixin, ListView):
     title = 'Albums'
     template_name = 'albums/album_list.jinja'
-    paginate_by = 20
+    paginate_by = PAGE_SIZE
     model = Album
 
 
@@ -42,6 +45,25 @@ class AlbumDetail(UserContextMixin, DetailView):
 
     def get_object(self):
         return get_object_or_404(Album, id=int(self.args[0]))
+
+
+class AlbumsByLabel(UserContextMixin, ListView):
+    title = 'Albums on '
+    template_name = 'albums/album_list.jinja'
+    model = Album
+    paginate_by = PAGE_SIZE
+
+    def get_queryset(self):
+        label_id = self.args[0]
+        label = RecordLabel.objects.get(id=label_id)
+        self.label = label
+        return label.album_set.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = self.title + self.label.name
+        context['page_heading'] = context['page_title']
+        return context
 
 
 class AlbumCreate(PermissionRequiredMixin, ContextMixin, RevisionMixin,

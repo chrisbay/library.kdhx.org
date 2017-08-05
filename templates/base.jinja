@@ -85,6 +85,11 @@
         {% endif %}
 
         <div class="container container-fluid">
+
+            {% if page_heading %}
+            <h1 class="page-heading">{{page_heading}}</h1>
+            {% endif %}
+
             {% block content %}
             {% endblock %}
         </div>
