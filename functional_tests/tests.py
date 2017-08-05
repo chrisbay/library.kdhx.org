@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
+from .login import login_user
+
 import os
 import time
 import unittest
@@ -17,32 +19,8 @@ class AlbumsAppTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.live_server_url = 'http://localhost:8000'
         super(AlbumsAppTests, cls).setUpClass()
-
-        try:
-            cls.browser = webdriver.Firefox()
-            cls.browser.implicitly_wait(10)
-
-            # Log in
-            cls.browser.get(cls.live_server_url)
-            email_field = cls.browser.find_element_by_id('identifierId')
-            email_field.click()
-            email_field.send_keys(os.environ['KDHX_TEST_USER_EMAIL'])
-            email_field.send_keys(Keys.RETURN)
-            WebDriverWait(cls.browser, 5).until(
-                ec.visibility_of_element_located((By.ID, 'password')))
-            password_field = cls.browser.find_element_by_css_selector(
-                '#password [type="password"]')
-            password_field.send_keys(os.environ['KDHX_TEST_USER_PASS'])
-            password_field.send_keys(Keys.RETURN)
-            WebDriverWait(cls.browser, 5).until(
-                ec.visibility_of_element_located((By.ID, 'kdhx-logo')))
-            assert cls.live_server_url+'/albums/' == cls.browser.current_url, \
-                'Login redirect failed'
-        except:
-            cls.browser.quit()
-            assert False, 'Login failed'
+        login_user(cls)
 
     @classmethod
     def tearDownClass(cls):
@@ -53,20 +31,3 @@ class AlbumsAppTests(unittest.TestCase):
         self.browser.get(self.live_server_url)
         self.assertEqual(self.live_server_url+'/albums/',
                          self.browser.current_url)
-
-    def test_can_add_new_album(self):
-
-        # User browses to /albums/new/ and sees the new album form
-        self.browser.get(self.live_server_url+'/albums/new/')
-        self.assertIn('New Album', self.browser.title)
-        header_text = self.browser.find_element_by_xpath('//h2[1]').text
-        self.assertIn('New Album', header_text)
-        album_name_input = self.browser.find_element_by_xpath(
-            '//form//input[@name="title"]')
-
-        # TODO - User enters data for a new album, and clicks the Save button
-
-        # TODO - User sees new album form rendered again,
-        # with a confirmation flash message
-
-        # TODO - User clicks on flash message link to view new album details

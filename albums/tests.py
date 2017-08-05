@@ -3,12 +3,19 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.test import TestCase
 from django.db.utils import IntegrityError
+from django.contrib.auth.models import AnonymousUser
+from django.conf import settings
 from albums import views
 from albums.models import MediaType
 import re
 
 
 class AlbumsTest(TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.user = AnonymousUser()
+        super(AlbumsTest, cls).setUpClass()
 
     @classmethod
     def remove_csrf_input(cls, html):
@@ -18,14 +25,17 @@ class AlbumsTest(TestCase):
 
     def test_albums_root_resolves_to_index(self):
         found = resolve('/albums/')
-        self.assertEqual(found.func, views.index)
+        self.assertEqual(found.func.__name__, views.AlbumList.__name__)
 
     def test_albums_index_returns_correct_html(self):
         request = HttpRequest()
-        response = views.index(request)
-        view_args = {'message': 'Albums Index',
-                     'page_title': 'Albums'}
-        expected_html = render_to_string('albums/index.jinja', view_args)
+        request.method = 'get'
+        request.user = self.user
+        response = views.AlbumList.as_view()(request)
+        response.render()
+        view_args = {'page_title': 'Albums', 'user': self.user,
+                     'LOGIN_URL': settings.LOGIN_URL}
+        expected_html = render_to_string('albums/album_list.jinja', view_args)
         self.assertEqual(response.content.decode(), expected_html)
 
     def test_albums_new_resolves_to_new(self):
