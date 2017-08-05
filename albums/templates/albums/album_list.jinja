@@ -37,7 +37,9 @@
             </td>
             {% endif %}
             <th scope="row">{{album.artist.file_under}}</th>
-            <td>{{album.artist.display_name}}</td>
+            <td>
+                <a href="{{ url('albums:albums-by-artist', args=[album.artist.id]) }}">{{album.artist.display_name}}</a>
+            </td>
             <td><a href="{{ url('albums:album-detail', args=[album.id]) }}">{{album.title}}</a></td>
             <td>{{album.genre.label}}</td>
             <td>
