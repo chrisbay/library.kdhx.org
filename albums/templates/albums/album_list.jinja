@@ -41,7 +41,9 @@
                 <a href="{{ url('albums:albums-by-artist', args=[album.artist.id]) }}">{{album.artist.display_name}}</a>
             </td>
             <td><a href="{{ url('albums:album-detail', args=[album.id]) }}">{{album.title}}</a></td>
-            <td>{{album.genre.label}}</td>
+            <td>
+                <a href="{{ url('albums:albums-by-genre', args=[album.genre.id]) }}">{{album.genre.label}}</a>
+            </td>
             <td>
             {% for label in album.labels.all() %}
                 <a href="{{ url('albums:albums-by-label', args=[label.id]) }}">{{label.name}}</a>

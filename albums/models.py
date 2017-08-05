@@ -85,10 +85,6 @@ class Album(models.Model):
     class Meta:
         ordering = ["-created"]
 
-    @property
-    def label_display_text(self):
-        return ' / '.join([label.name for label in self.labels.all()])
-
     def __repr__(self):
         return '<Album {0} - {1}>'.format(self.artist.display_name, self.title)
 

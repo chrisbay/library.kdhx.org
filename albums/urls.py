@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^star/(?P<album_id>[\d]+)$', api.toggle_album_star, name='star-album'),
     url(r'^label/([-\w]+)$', views.AlbumsByLabel.as_view(), name='albums-by-label'),
     url(r'^artist/([-\w]+)$', views.AlbumsByArtist.as_view(), name='albums-by-artist'),
+    url(r'^genre/([-\w]+)$', views.AlbumsByGenre.as_view(), name='albums-by-genre'),
 ]
