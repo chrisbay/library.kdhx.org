@@ -4,9 +4,11 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
+from haystack.generic_views import SearchView
 from reversion.views import RevisionMixin
 from albums.models import Album, RecordLabel, Artist, Genre
 from albums.forms import AlbumCreateForm
+
 
 
 PAGE_SIZE = 20
@@ -102,6 +104,11 @@ class AlbumsByGenre(UserContextMixin, ListView):
         context['page_title'] = self.genre.label + ' Albums'
         context['page_heading'] = context['page_title']
         return context
+
+
+class AlbumSearch(ContextMixin, SearchView):
+    title = 'Album Search'
+    template_name = 'albums/album_search.jinja'
 
 
 class AlbumCreate(PermissionRequiredMixin, ContextMixin, RevisionMixin,

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'bootstrapform_jinja',
     'django_extensions',
     'reversion',
+    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -210,3 +211,11 @@ LOGIN_EXEMPT_URLS = [
     'albums/',
     'albums/detail/',
 ]
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
+
+HAYSTACK_DOCUMENT_FIELD = 'title'
