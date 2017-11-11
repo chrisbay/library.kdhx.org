@@ -14,22 +14,70 @@
     </form>
 
     {% if query %}
-        <h3>{{ page_obj.object_list|length }} Results</h3>
-
-        {% for result in page_obj.object_list %}
-            <p>
-                {{ result.object.title }}
-            </p>
-        {% endfor %}
-
-        {% if page_obj.has_previous or page_obj.has_next %}
-            <div>
-                {% if page_obj.has_previous %}<a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">{% endif %}&laquo; Previous{% if page_obj.has_previous %}</a>{% endif %}
-                |
-                {% if page_obj.has_next %}<a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">{% endif %}Next &raquo;{% if page_obj.has_next %}</a>{% endif %}
-            </div>
+        {% if page_obj.object_list|length == 1 %}
+            {% set result_text = 'Result' %}
+        {% else %}
+            {% set result_text = 'Results' %}
         {% endif %}
-    {% else %}
-        {# Show some example queries to run, maybe query syntax, something else? #}
+        <h3>{{ page_obj.object_list|length }} {{ result_text }}</h3>
+
+        <table class="table table-hover album-table">
+            <thead class="thead-default">
+                <tr>
+                    {% if user.is_authenticated %}<th></th>{% endif %}
+                    <th>Filed Under</th>
+                    <th>Artist</th>
+                    <th>Album</th>
+                    <th>Genre</th>
+                    <th>Label</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in page_obj.object_list %}
+                <tr>
+                    {% if user.is_authenticated %}
+                    <td>
+                        <div class="album-star-control" 
+                                data-album-id="{{result.object.id}}" 
+                                data-starred="{{ (result.object in user_albums)|lower }}">
+                        </div>
+                    </td>
+                    {% endif %}
+                    <th scope="row">{{result.object.artist.file_under}}</th>
+                    <td>
+                        <a href="{{ url('albums:albums-by-artist', args=[result.object.artist.id]) }}">{{result.object.artist.display_name}}</a>
+                    </td>
+                    <td><a href="{{ url('albums:album-detail', args=[result.object.id]) }}">{{result.object.title}}</a></td>
+                    <td>
+                        <a href="{{ url('albums:albums-by-genre', args=[result.object.genre.id]) }}">{{result.object.genre.label}}</a>
+                    </td>
+                    <td>
+                    {% for label in result.object.labels.all() %}
+                        <a href="{{ url('albums:albums-by-label', args=[label.id]) }}">{{label.name}}</a>
+                        {% if not loop.last %} / {% endif %}
+                    {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if is_paginated %}
+            <nav>
+                <ul class="pagination">
+                    {% if page_obj.has_previous() %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ "%s?page=%d" % (url('albums:album-list'),page_obj.previous_page_number()) }}" aria-label="Previous">Previous</span></a>
+                    </li>
+                    {% endif %}
+
+                    {% if page_obj.has_next() %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ "%s?page=%d" % (url('albums:album-list'),page_obj.next_page_number()) }}" aria-label="Next">Next</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
     {% endif %}
 {% endblock %}
