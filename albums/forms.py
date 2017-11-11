@@ -1,5 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from haystack.forms import SearchForm
+from haystack.query import SearchQuerySet
 from albums.models import Album, Artist, RecordLabel
 
 DEFAULT_MEDIA_ID = 1
@@ -63,3 +65,16 @@ class AlbumCreateForm(forms.ModelForm):
             new_label.save()
             album.labels.add(new_label)
         return album
+
+
+class AlbumSearchForm(SearchForm):
+
+    def search(self):
+        sqs = SearchQuerySet()
+        term = self.cleaned_data['q']
+        if term == '':
+            sqs = sqs.all()
+        else:
+            sqs = sqs.filter(content__contains=term)
+        return sqs
+

@@ -7,8 +7,7 @@ from django.contrib import messages
 from haystack.generic_views import SearchView
 from reversion.views import RevisionMixin
 from albums.models import Album, RecordLabel, Artist, Genre
-from albums.forms import AlbumCreateForm
-
+from albums.forms import AlbumCreateForm, AlbumSearchForm
 
 
 PAGE_SIZE = 20
@@ -106,9 +105,10 @@ class AlbumsByGenre(UserContextMixin, ListView):
         return context
 
 
-class AlbumSearch(ContextMixin, SearchView):
+class AlbumSearch(UserContextMixin, SearchView):
     title = 'Album Search'
     template_name = 'albums/album_search.jinja'
+    form_class = AlbumSearchForm
 
 
 class AlbumCreate(PermissionRequiredMixin, ContextMixin, RevisionMixin,

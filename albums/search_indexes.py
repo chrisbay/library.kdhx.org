@@ -4,8 +4,7 @@ from albums.models import Album
 
 
 class AlbumIndex(indexes.SearchIndex, indexes.Indexable):
-    title = indexes.CharField(document=True, use_template=True)
-    artist = indexes.CharField(model_attr='artist')
+    text = indexes.CharField(document=True, use_template=True)
 
     def get_model(self):
         return Album

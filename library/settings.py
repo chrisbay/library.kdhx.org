@@ -214,8 +214,8 @@ LOGIN_EXEMPT_URLS = [
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+        'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
+        'URL': 'http://localhost:9200/',
+        'INDEX_NAME': 'haystack',
     },
 }
-
-HAYSTACK_DOCUMENT_FIELD = 'title'
