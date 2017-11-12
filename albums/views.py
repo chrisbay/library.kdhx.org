@@ -168,3 +168,15 @@ class AlbumUpdate(PermissionRequiredMixin, ContextMixin, RevisionMixin,
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(cleaned_data,
                                            album=self.object)
+
+
+def weekly_email(request):
+    start_date = datetime.date.today()
+    end_date = start_date - datetime.timedelta(days=7)
+    albums = list(Album.objects.filter(created__date__gt=end_date))
+    args = {
+        'albums': sorted(albums, key=lambda x: (x.genre.label, x.artist.display_name)),
+        'start_date': start_date,
+        'end_date': end_date
+    }
+    return render(request, 'albums/weekly_email.jinja', args)

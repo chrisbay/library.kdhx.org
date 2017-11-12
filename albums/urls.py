@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^artist/([-\w]+)$', views.AlbumsByArtist.as_view(), name='albums-by-artist'),
     url(r'^genre/([-\w]+)$', views.AlbumsByGenre.as_view(), name='albums-by-genre'),
     url(r'^search/', views.AlbumSearch.as_view(), name='album-search'),
+    url(r'^weekly-email$', views.weekly_email, name='weekly-email'),
 ]

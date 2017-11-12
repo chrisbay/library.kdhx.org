@@ -1,0 +1,49 @@
+<html>
+<body>
+    <div style="font-family:sans-serif;">
+        <h3>New in the KDHX music library from {{ start_date }} to {{ end_date }}</h3>
+        <table cellpadding="10" cellspacing="0">
+        <tr style="background-color:#eceeef;color:#464a4c;">
+            <th align="left">Search</th>
+            <th align="left">Filed Under</th>
+            <th align="left">Artist</th>
+            <th align="left">Album Name</th>
+            <th align="left">Genre</th>
+            <th align="left">Label</th>
+        </tr>
+
+        {% for album in albums %}
+
+            {% if loop.index % 2 %}
+                {% set bg_color = '#fff' %}
+            {% else %}
+                {% set bg_color = '#eceeef' %}
+            {% endif %}	
+        
+            <tr bgcolor="{{ bg_color }}">
+                <td style="font-size:12px;">
+                    <a target="_blank" title="Search Google" href="http://www.google.com/search?hl=en&q={{ album.artist.display_name + ' ' + album.title }}">Google</a><br />
+                    <a target="_blank" title="Search Amazon" href="http://www.amazon.com/gp/search?index=music&keywords={{ album.artist.display_name + ' ' + album.title }}">Amazon</a>
+                </td>
+                <th scope="row">{{album.artist.file_under}}</th>
+                <td>
+                    <a target="_blank" href="{{ url('albums:albums-by-artist', args=[album.artist.id]) }}">{{album.artist.display_name}}</a>
+                </td>
+                <td><a target="_blank" href="{{ url('albums:album-detail', args=[album.id]) }}">{{album.title}}</a></td>
+                <td>
+                    <a target="_blank" href="{{ url('albums:albums-by-genre', args=[album.genre.id]) }}">{{album.genre.label}}</a>
+                </td>
+                <td>
+                {% for label in album.labels.all() %}
+                    <a target="_blank" href="{{ url('albums:albums-by-label', args=[label.id]) }}">{{label.name}}</a>
+                    {% if not loop.last %} / {% endif %}
+                {% endfor %}
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </table>
+    </div>
+</body>
+</html>
