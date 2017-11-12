@@ -42,6 +42,7 @@ class AlbumList(UserContextMixin, ListView):
 
 class RecentAlbumsList(AlbumList):
     title = 'Albums Added In The Past {days} Days'
+    paginate_by = None
     
     def dispatch(self, request, *args, **kwargs):
         self.days = int(self.args[0])
