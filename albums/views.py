@@ -1,8 +1,10 @@
+import datetime
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, DetailView
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from haystack.generic_views import SearchView
 from reversion.views import RevisionMixin
@@ -36,6 +38,28 @@ class AlbumList(UserContextMixin, ListView):
     template_name = 'albums/album_list.jinja'
     paginate_by = PAGE_SIZE
     model = Album
+
+
+class RecentAlbumsList(AlbumList):
+    title = 'Albums Added In The Past {days} Days'
+    
+    def dispatch(self, request, *args, **kwargs):
+        self.days = int(self.args[0])
+        if self.days < 1:
+            return redirect('albums:album-list')         
+        else:
+            return super(RecentAlbumsList, self).dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        oldest_date = datetime.datetime.now() - datetime.timedelta(days=self.days)
+        return Album.objects.filter(created__date__gt=oldest_date)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        title = self.title.format(days=self.days)
+        context['page_title'] = title
+        context['page_heading'] = title
+        return context
 
 
 class AlbumDetail(UserContextMixin, DetailView):

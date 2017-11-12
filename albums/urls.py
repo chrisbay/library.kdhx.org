@@ -6,6 +6,7 @@ app_name = 'albums'
 
 urlpatterns = [
     url(r'^$', views.AlbumList.as_view(), name='album-list'),
+    url(r'^recent/([\d]+)$', views.RecentAlbumsList.as_view(), name='album-list-recent'),
     url(r'^detail/([-\w]+)$', views.AlbumDetail.as_view(), name='album-detail'),
     url(r'^new/$', views.AlbumCreate.as_view(), name='album-new'),
     url(r'^edit/(?P<pk>[-\w]+)$', views.AlbumUpdate.as_view(), name='album-edit'),

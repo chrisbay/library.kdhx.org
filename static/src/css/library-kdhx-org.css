@@ -71,5 +71,6 @@ table.album-table {
     content: "* Only create a new label if the desired label is not available above";
 }
 .page-heading {
-    font-size: 2rem;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
 }

@@ -32,7 +32,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('albums:album-list') }}">Albums</a>
+                        <a class="nav-link" href="{{ url('albums:album-list') }}">Recently Added</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('albums:album-search') }}">Search</a>
@@ -90,7 +90,7 @@
         <div class="container container-fluid">
 
             {% if page_heading %}
-            <h1 class="page-heading">{{page_heading}}</h1>
+            <h2 class="page-heading">{{page_heading}}</h2>
             {% endif %}
 
             {% block content %}
