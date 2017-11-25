@@ -1,0 +1,92 @@
+{% extends 'base.jinja' %}
+
+{% block content %}
+
+<div class="row justify-content-center" id="label-controls">
+    <div class="col-3">
+        <div class="btn-group" role="group" aria-label="Label Controls">
+            <button type="button" class="btn btn-success" onclick="javascript:window.print()">Print</button>
+            <button type="button" class="btn btn-warning">Add Labels</button>
+            <button type="button" class="btn btn-danger">Reset</button>
+        </div>
+    </div>
+</div>
+
+{% for album in albums %}
+    {% if (loop.index-1) % 3 == 0 %}
+    <div class="row">
+    {% endif %}
+
+        <div class="col-4 label" id="">
+            <div class="label-text ui-widget-content">
+                <div class="datefileblock">{{album.created.strftime('%Y-%m-%d')}}<br />
+                    <strong class='fileunder'>{{ album.artist.file_under }}</strong><br/>
+                </div>
+                <div class="colorblock colorblock1" style="background-color:#eee"></div>
+                <div class="colorblock colorblock2" style="background-color:#333"></div>
+                
+                <div class="labelrow"></div>
+                <div class="labelrow"><strong>{{ album.artist.display_name }}</strong></div>
+                <div class="labelrow">{{ album.title }}</div>
+                <div class="labelrow">
+                    {% for label in album.labels.all() %}
+                        {{label.name}}{% if not loop.last %} / {% endif %}
+                    {% endfor %}
+                </div>
+                <a class="noPrint adder ui-link orange" href="#" onclick="blankBefore();">&nbsp;+&nbsp;</a>&nbsp;
+                <a class="noPrint deleter ui-link red" href="#" onclick="zapLabel();">&nbsp;X&nbsp;</a>
+            </div>
+        </div>
+
+    {% if (loop.index-1) % 3 == 2 %}
+    </div>
+    {% endif %}
+
+{% endfor %}
+
+<script type="text/javascript">
+function zapLabel(labelseq) 
+{
+var zapThisLabel=$("div#"+labelseq);
+  zapThisLabel.remove();
+}
+
+function blankBefore(labelseq) 
+{
+var prependLabel=$("div#"+labelseq);
+var newLabelId="blank"+Math.floor(Math.random()*10000001);
+prependLabel.before("<div class='label' id="+newLabelId+"><div class='label-text'> <br/><br/><br/><br/><a class='noPrint deleter ui-link red' href='#' onclick='zapLabel(\""+newLabelId+"\");'>&nbsp;X&nbsp;</a></div></div>");
+}
+
+function CreateTemplateInches(paperWidth,paperHeight,marginLeft,
+   marginTop,labelWidth,labelHeight,numRows,numColumns,horizontalSpace,verticalSpace)
+{
+	var paper=$('<div class="paper"></div>');
+	paper.css('width',paperWidth+'in');
+	paper.css('height',paperHeight+'in');
+	paper.appendTo('#container');
+
+	var i=0,j=0;
+	var posix=0,posiy=0;
+	var numrows=numRows, numcolumns=numColumns;
+	for (i=0;i<numrows;i++)
+	{
+		posix=0;
+		posiy=i*(labelHeight+verticalSpace);
+
+		for (j=0;j<numcolumns;j++)
+		{
+			posix=j*(labelWidth+horizontalSpace);
+			var label=$('<div class=label></div>;');
+			label.css('margin-left',marginLeft+'in')
+			     .css('margin-top',marginTop+'in')
+			     .css('width',labelWidth+'in')
+			     .css('height',labelHeight+'in')
+			     .css('left',posix+'in')
+			     .css('top',posiy+'in');
+			paper.append(label);
+		}
+	}
+};
+</script>
+{% endblock %}

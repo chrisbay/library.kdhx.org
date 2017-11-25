@@ -8,7 +8,7 @@ class AlbumStar extends React.Component {
     let albumId = props.albumId;
     let iconClasses = props.starred ? "fa fa-star" : "fa fa-star-o";
     this.state = {
-      url: "/albums/star/"+albumId,
+      url: "/albums/toggle/star/"+albumId,
       starred: props.starred,
       iconClasses: iconClasses,
     };
