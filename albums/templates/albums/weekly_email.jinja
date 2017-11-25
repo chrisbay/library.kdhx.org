@@ -23,7 +23,8 @@
             <tr bgcolor="{{ bg_color }}">
                 <td style="font-size:12px;">
                     <a target="_blank" title="Search Google" href="http://www.google.com/search?hl=en&q={{ album.artist.display_name + ' ' + album.title }}">Google</a><br />
-                    <a target="_blank" title="Search Amazon" href="http://www.amazon.com/gp/search?index=music&keywords={{ album.artist.display_name + ' ' + album.title }}">Amazon</a>
+                    <a target="_blank" title="Search Amazon" href="http://www.amazon.com/gp/search?index=music&keywords={{ album.artist.display_name + ' ' + album.title }}">Amazon</a><br />
+                    <a target="_blank" title="Search Spotify" href="{{ get_spotify_search_url(album.artist.display_name + ' ' + album.title) }}">Spotify</a>
                 </td>
                 <th scope="row">{{album.artist.file_under}}</th>
                 <td>
