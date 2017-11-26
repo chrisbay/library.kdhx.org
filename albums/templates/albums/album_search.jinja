@@ -31,6 +31,7 @@
             <thead class="thead-default">
                 <tr>
                     {% if user.is_authenticated %}<th></th>{% endif %}
+                    {% if user.has_perm('albums.add_album') %}<th></th>{% endif %}
                     <th>Filed Under</th>
                     <th>Artist</th>
                     <th>Album</th>
@@ -46,6 +47,14 @@
                         <div class="album-star-control" 
                                 data-album-id="{{result.object.id}}" 
                                 data-starred="{{ (result.object in user_albums)|lower }}">
+                        </div>
+                    </td>
+                    {% endif %}
+                    {% if user.has_perm('albums.add_album') %}
+                    <td>
+                        <div class="album-print-control" 
+                                data-album-id="{{result.object.id}}" 
+                                data-saved="{{ (request.session.labels_to_print and result.object.id in request.session.labels_to_print )|lower }}">
                         </div>
                     </td>
                     {% endif %}

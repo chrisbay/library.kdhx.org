@@ -7,11 +7,11 @@
     <div class="col">
         <p class="d-inline-block">Filter by last:</p>
         <div class="btn-group" role="group" aria-label="Filter Day Range">
-            <a role="button" class="btn btn-secondary" href="{{ url('albums:album-list-recent', args=['7']) }}">7 Days</a>
-            <a role="button" class="btn btn-secondary" href="{{ url('albums:album-list-recent', args=['30']) }}">30 Days</a>
-            <a role="button" class="btn btn-secondary" href="{{ url('albums:album-list-recent', args=['60']) }}">60 Days</a>
-            <a role="button" class="btn btn-secondary" href="{{ url('albums:album-list-recent', args=['90']) }}">90 Days</a>
-            <a role="button" class="btn btn-secondary" href="{{ url('albums:album-list-recent', args=['120']) }}">120 Days</a>
+            <a role="button" class="btn btn-light" href="{{ url('albums:album-list-recent', args=['7']) }}">7 Days</a>
+            <a role="button" class="btn btn-light" href="{{ url('albums:album-list-recent', args=['30']) }}">30 Days</a>
+            <a role="button" class="btn btn-light" href="{{ url('albums:album-list-recent', args=['60']) }}">60 Days</a>
+            <a role="button" class="btn btn-light" href="{{ url('albums:album-list-recent', args=['90']) }}">90 Days</a>
+            <a role="button" class="btn btn-light" href="{{ url('albums:album-list-recent', args=['120']) }}">120 Days</a>
         </div>
     </div>
     <div class="col-2">
@@ -27,6 +27,7 @@
     <thead class="thead-default">
         <tr>
             {% if user.is_authenticated %}<th></th>{% endif %}
+            {% if user.has_perm('albums.add_album') %}<th></th>{% endif %}
             <th>Filed Under</th>
             <th>Artist</th>
             <th>Album</th>
@@ -42,6 +43,14 @@
                 <div class="album-star-control" 
                         data-album-id="{{album.id}}" 
                         data-starred="{{ (album in user_albums)|lower }}">
+                </div>
+            </td>
+            {% endif %}
+            {% if user.has_perm('albums.add_album') %}
+            <td>
+                <div class="album-print-control" 
+                        data-album-id="{{album.id}}" 
+                        data-saved="{{ (request.session.labels_to_print and album.id in request.session.labels_to_print )|lower }}">
                 </div>
             </td>
             {% endif %}

@@ -1,6 +1,13 @@
 main {
     padding: 1.5em 0;
 }
+.bg-light {
+    background-color: #f0f0f0fa !important;
+}
+/* Fix for bug in v4.0 beta */
+.show .dropdown-menu {
+    display:block;
+}
 .navbar-brand img {
     margin-right: 10px;
 }
@@ -35,16 +42,21 @@ table.album-table {
 #album-detail ul {
     padding: 0;
 }
-.star-album {
-    color: gray;
+.star-album, a.print-album {
+    color: gray !important;
 }
 .star-album .fa-star {
     color: gold;
 }
-.album-star-control {
+.print-album .print-saved {
+    color: black;
+}
+.album-star-control,
+.album-print-control {
     text-align: center;
 }
-.album-star-control:hover {
+.album-star-control:hover,
+.album-print-control:hover {
     cursor: pointer;
 }
 .form-toggle {
@@ -76,45 +88,84 @@ table.album-table {
 }
 
 /* LABEL PRINTING */
-
 #label-controls {
     margin-bottom: 1.5em;
 }
-
 .label {
     border-collapse: collapse;
     width: 2.525in;
-    height: calc(1in-2px);
+    height: calc(1in - 2px);
     margin: 0;
     padding: 0;
     line-height: 1em;
     border: 1px dotted #999;
 }
-div.labelrow{
-    display:block; width: 2in; text-overflow:ellipsis; height: 1.6em; white-space:nowrap;overflow:hidden; }
-
-.fileunder {background: white; }
-
-.colorblock {right:0; position:absolute;  width: calc( 1in - 8px); height: calc( .2in ) ; border:1px solid black;}
-.colorblock1 {top:.5in;}
-.colorblock2 {top:.7in;}
-.datefileblock {right:.1in; position:absolute; width: .65in; height:2.1em; background:white; z-index:3; text-align:center;}
-
-.label-text { font-size:11px; text-transform:uppercase;}
-
-a.noPrint.red { border:2px solid #F44; margin:0px 0px 3px 1px;; padding:1px; background: #FFF; color:red;border-radius:10px; text-decoration:none;font-weight:bold;top:-8px; position:relative; font-size:9px;} 
-a.noPrint.orange{ border:2px solid orange; margin:0px 0px 3px 1px;; padding:1px; background: #FFF; color:orange;border-radius:10px; text-decoration:none;font-weight:bold;top:-8px; position:relative; font-size:9px} 
-.noPrint {z-index:2; }
-#previewHeader {width: 100%; border-bottom: 10px outset #ccc; clear:both;margin:0;padding:0;}
-.contentcontainer {position:relative; width:calc(100%); margin:0; z-index:1; padding:.3em .3em 0 .3em; background:#444; text-align:center;}
-.contentcontainer a {color:#FDD;}
-h1 {margin:0}
-
-@media only print { 
-.noPrint { display:none !important; visibility: none; height: 0; width:0; }
-.label {
-    border:0px dotted white;}
-
+div.label-row {
+    display: block; 
+    width: 2in; 
+    text-overflow: ellipsis; 
+    height: 1.6em; 
+    white-space: nowrap;
+    overflow: hidden; 
+    padding: .25rem;
 }
-
+.color-block {
+    right: 0; 
+    position: absolute;
+    top: .47in;
+    padding: .25rem;
+}
+.color-block > div {
+    width: calc( 1in - 8px); 
+    height: calc( .2in );
+}
+.color-block > div:first-child {
+    border: 1px solid #999;
+    border-width: 0 0 1px 0;
+}
+.info-block {
+    right:.1in; 
+    position:absolute; 
+    width: .65in; 
+    height: 2.1em; 
+    background: white; 
+    z-index: 3; 
+    text-align:center;
+}
+.label-text { 
+    font-size: .7rem; 
+    text-transform: uppercase;
+    height: 100%;
+}
+.label-controls {
+    font-size: 1rem;
+    position: absolute;
+    bottom: 0;
+    padding: .25rem;
+}
+.add-label-control {
+    color: green;
+}
+.remove-label-control {
+    color: red;
+    left: 1.25rem;
+}
+.label-controls a:hover {
+    color: initial;
+    text-decoration: none;
+}
+.no-print {
+    z-index:2; 
+}
+@media only print { 
+    .no-print { 
+        display:none !important; 
+        visibility: none; 
+        height: 0; 
+        width:0; 
+    }
+    .label {
+        border:0px dotted white;
+    }
+}
 /* END LABEL PRINTING */

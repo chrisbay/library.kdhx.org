@@ -48,3 +48,15 @@ $ conda env export > environment.yml
 ```nohighlight
 $ ./manage.py runscript import_genres
 ```
+
+## Building Static Assets with Webpack
+
+```nohighlight
+$ npm run build
+```
+
+To build with hot deploy enabled during development:
+
+```nohighlight
+$ npm run watch
+```

@@ -3,7 +3,7 @@ from albums.models import Genre, Album
 
 
 class GenreLabel(models.Model):
-    genre = models.ForeignKey(Genre, on_delete=models.PROTECT)
+    genre = models.OneToOneField(Genre, on_delete=models.PROTECT)
     color_left = models.CharField(max_length=6)
     color_right = models.CharField(max_length=6)
 

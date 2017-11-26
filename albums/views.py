@@ -47,7 +47,7 @@ class RecentAlbumsList(AlbumList):
     def dispatch(self, request, *args, **kwargs):
         self.days = int(self.args[0])
         if self.days < 1:
-            return redirect('albums:album-list')         
+            return redirect('albums:album-list')
         else:
             return super(RecentAlbumsList, self).dispatch(request, *args, **kwargs)
 

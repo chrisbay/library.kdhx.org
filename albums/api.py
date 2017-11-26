@@ -29,17 +29,17 @@ def toggle_album_state(request, album_id=None, state=''):
 def toggle_album_print(request, album):
     user = request.user
     key = 'labels_to_print'
-    if key not in request.session:
+    if key not in request.session or not request.session[key]:
         request.session[key] = []
-    to_print = request.session[key]
-    if album.id in to_print:
-        to_print.remove(album.id)
+    if album.id in request.session[key]:
+        request.session[key].remove(album.id)
         msg = "{0} removed from print list".format(album.title)
         action = "removed"
     else:
-        to_print.append(album.id)
+        request.session[key].append(album.id)
         msg = "{0} saved to print list".format(album.title)
         action = "saved"
+    request.session.modified = True
     return (msg, action)
 
 
