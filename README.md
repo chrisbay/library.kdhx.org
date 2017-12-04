@@ -4,18 +4,28 @@
 
 ### Project and depdendencies
 
-Install [Miniconda 3](https://conda.io/miniconda.html)
+Install `virtualenv`:
+
+```nohighlight
+$ pip install virtualenv
+```
+
+Create a new virtual environment, specifying a Python 3.6 binary:
+
+```nohighlight
+$ virtualenv -p PATH_TO_PYTHON_36 venv
+```
 
 From the project root, install dependencies:
 
 ```nohighlight
-$ conda env create -f environment.yml
+$ pip install -r requirements.txt
 ```
 
 Activate the environment:
 
 ```nohighlight
-$ source activate library.kdhx.org
+$ source venv/bin/activate
 ```
 
 ### Setting up a database
@@ -37,10 +47,10 @@ Run the development app server:
 $ python manage.py runserver
 ```
 
-## Updating environment.yml
+## Updating requirements.txt
 
 ```nohighlight
-$ conda env export > environment.yml
+$ pip freeze > requirements.txt
 ```
 
 ## Importing Data
