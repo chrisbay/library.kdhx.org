@@ -22,7 +22,7 @@
 $(document).ready(function(){
 
     function setUpGroupToggles(slugs, label) {
-
+        
         var form_group_wrapper = $('<div class="collapse collapsible-form-group" id="'+label+'-form-group-wrapper"></div>');
         var first_form_group = $('#id_new_'+slugs[0]).parents('.form-group');
         form_group_wrapper.insertBefore(first_form_group);

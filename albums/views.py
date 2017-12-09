@@ -161,13 +161,17 @@ class AlbumUpdate(PermissionRequiredMixin, ContextMixin, RevisionMixin,
     permission_required = 'albums.change_album'
     model = Album
     template_name = 'albums/album_form.jinja'
-    fields = ['title', 'artist', 'labels', 'media', 'genre', 'location']
+    form_class = AlbumCreateForm
     success_url = '/albums/'
     success_message = 'Album updated: <strong>%(album)s</strong>'
 
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(cleaned_data,
                                            album=self.object)
+
+    def form_valid(self, form):
+        # TODO - check for and create new artist or label as necessary
+        return super(AlbumUpdate, self).form_valid(form)
 
 
 def weekly_email(request):
