@@ -32,19 +32,20 @@ class AlbumCreateForm(forms.ModelForm):
     def clean(self):
         super(AlbumCreateForm, self).clean()
         album = self.cleaned_data
-        validation_errors = ""
         new_artist_fields_present = ((album['new_artist_first'] and
                                      album['new_artist_last']) or
                                      album['new_artist_name'])
         if not album['artist'] and not new_artist_fields_present:
-            validation_errors = ('Artist not specified, or info missing. '
-                                 'If creating a new artist, '
-                                 'provide both Artist First and Artist last, '
-                                 'or Artist Name.')
+            raise ValidationError(('Artist not specified, or info missing. '
+                                   'If creating a new artist, '
+                                   'provide both Artist First and Artist last,'
+                                   ' or Artist Name.'))
+        if album['artist'] and new_artist_fields_present:
+            raise ValidationError(('Both existing and new artist specified.'
+                                   'To assign a new artist, clear the '
+                                   'Artist field'))
         if not album['labels'] and not album['new_label']:
-            validation_errors = 'No label(s) specified'
-        if validation_errors:
-            raise ValidationError(validation_errors)
+            raise ValidationError('No label(s) specified')
 
     def save(self, commit=True):
         album = super(AlbumCreateForm, self).save(commit=False)

@@ -150,10 +150,6 @@ class AlbumCreate(PermissionRequiredMixin, ContextMixin, RevisionMixin,
         return self.success_message % dict(cleaned_data,
                                            album=self.object)
 
-    def form_valid(self, form):
-        # TODO - check for and create new artist or label as necessary
-        return super(AlbumCreate, self).form_valid(form)
-
 
 class AlbumUpdate(PermissionRequiredMixin, ContextMixin, RevisionMixin,
                   SuccessMessageMixin, UpdateView):
@@ -168,10 +164,6 @@ class AlbumUpdate(PermissionRequiredMixin, ContextMixin, RevisionMixin,
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(cleaned_data,
                                            album=self.object)
-
-    def form_valid(self, form):
-        # TODO - check for and create new artist or label as necessary
-        return super(AlbumUpdate, self).form_valid(form)
 
 
 def weekly_email(request):
