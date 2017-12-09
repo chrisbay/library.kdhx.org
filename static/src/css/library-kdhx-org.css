@@ -18,6 +18,10 @@ main {
 }
 table.album-table {
     margin: 1.5em 0;
+    font-size: 0.875rem;
+}
+table.album-table td, table.album-table th {
+    padding: 0.5rem;
 }
 #album-detail-header {
     margin: 0.8em 0;

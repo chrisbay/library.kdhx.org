@@ -32,11 +32,12 @@
                 <tr>
                     {% if user.is_authenticated %}<th></th>{% endif %}
                     {% if user.has_perm('albums.add_album') %}<th></th>{% endif %}
-                    <th>Filed Under</th>
+                    <th></th>
                     <th>Artist</th>
                     <th>Album</th>
                     <th>Genre</th>
                     <th>Label</th>
+                    <th>Location</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,6 +73,7 @@
                         {% if not loop.last %} / {% endif %}
                     {% endfor %}
                     </td>
+                    <td>{{ result.object.location.label }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
