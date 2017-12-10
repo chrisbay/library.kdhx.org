@@ -52,10 +52,10 @@
                 {% endfor %}
             </div>
             <div class="label-controls">
-                <a class="no-print add-label-control" href="#" onclick="blankBefore({{ album.id }});">
+                <a class="no-print add-label-control" href="#" onclick="insertBlankBefore({{ album.id }});">
                     <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 </a>
-                <a class="no-print remove-label-control" href="#" onclick="zapLabel({{ album.id }});">
+                <a class="no-print remove-label-control" href="#" onclick="clearLabel({{ album.id }});">
                     <i class='fa fa-times-circle' aria-hidden='true'></i>
                 </a>
             </div>
@@ -67,19 +67,18 @@
 
 <script type="text/javascript">
 
-function zapLabel(id) {
+function clearLabel(id) {
     var zapThisLabel = $("div#"+id);
-    
     zapThisLabel.remove();
 }
 
-function blankBefore(id) {
+function insertBlankBefore(id) {
     var prependLabel = $("div#"+id);
     var newLabelId = "blank"+Math.floor(Math.random()*10000001);
     prependLabel.before("<div class='col-4 label' id="+newLabelId+">"+
             "<div class='label-text'>"+
                 "<div class='label-controls'>"+
-                    "<a class='no-print remove-label-control' href='#' onclick='zapLabel(\""+newLabelId+"\");'>"+
+                    "<a class='no-print remove-label-control' href='#' onclick='clearLabel(\""+newLabelId+"\");'>"+
                         "<i class='fa fa-times-circle' aria-hidden='true'></i>"+
                     "</a>"+
                 "</div>"+
