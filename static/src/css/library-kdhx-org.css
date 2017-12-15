@@ -152,7 +152,8 @@ div.label-row {
 }
 .remove-label-control {
     color: red;
-    left: 1.25rem;
+    position: relative;
+    left: 0.25rem;
 }
 .label-controls a:hover {
     color: initial;

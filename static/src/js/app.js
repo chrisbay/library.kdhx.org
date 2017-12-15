@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AlbumStar from './AlbumStar';
 import AlbumPrint from './AlbumPrint';
+import {AlbumLabel} from './AlbumLabel';
+import {AlbumLabelSheet} from './AlbumLabel';
 
 $(".album-star-control").each(function(){
   let isStarred = $(this).attr("data-starred") == "true";
@@ -20,3 +22,9 @@ $(".album-print-control").each(function(){
     $(this).get(0)
   );
 });
+
+window.renderLabelSheet = function(id) {
+  ReactDOM.render(
+    <AlbumLabelSheet />,
+    document.getElementById(id));
+}

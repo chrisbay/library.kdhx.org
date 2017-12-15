@@ -14,6 +14,9 @@ class MediaType(models.Model):
 class RecordLabel(models.Model):
     name = models.CharField(max_length=128, unique=True)
 
+    def natural_key(self):
+        return self.name
+
     def __repr__(self):
         return '<RecordLabel {0}>'.format(self.name)
 
@@ -46,6 +49,9 @@ class Artist(models.Model):
             return '#'
         return self.name[0].upper()
 
+    def natural_key(self):
+        return (self.display_name, self.file_under)
+
     def __repr__(self):
         return '<Artist {0}>'.format(self.display_name)
 
@@ -55,6 +61,10 @@ class Artist(models.Model):
 
 class Genre(models.Model):
     label = models.CharField(max_length=60)
+
+    def natural_key(self):
+        return (self.label, self.genrelabel.color_left,
+                self.genrelabel.color_right)
 
     def __repr__(self):
         return '<Genre {0}>'.format(self.label)
@@ -89,4 +99,4 @@ class Album(models.Model):
         return '<Album {0} - {1}>'.format(self.artist.display_name, self.title)
 
     def __str__(self):
-        return '{0} - {1}'.format(self.artist.display_name, self.title)    
+        return '{0} - {1}'.format(self.artist.display_name, self.title)

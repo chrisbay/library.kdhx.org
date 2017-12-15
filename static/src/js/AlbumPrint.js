@@ -4,7 +4,6 @@ import {addHeader} from './csrf';
 class AlbumPrint extends React.Component {
   constructor(props) {
     super(props);
-    let parts = window.location.pathname.split('/');
     let albumId = props.albumId;
     let iconClasses = props.saved ? "fa fa-print print-saved" : "fa fa-print";
     this.state = {

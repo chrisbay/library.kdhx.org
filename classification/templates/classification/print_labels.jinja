@@ -6,14 +6,14 @@
     <div class="col-2" style="text-align:center;">
         <div class="btn-group" role="group" aria-label="Label Controls">
             <button type="button" class="btn btn-success" onclick="javascript:window.print()"
-                {% if albums|length == 0 %}disabled{% endif %}>Print</button>
+                {% if album_count == 0 %}disabled{% endif %}>Print</button>
             <a href="{{ url('labels:reset-print-labels') }}" role="button" 
-                class="btn btn-warning {% if albums|length == 0 %}disabled{% endif %}">Reset</a>
+                class="btn btn-warning {% if album_count == 0 %}disabled{% endif %}">Reset</a>
         </div>
     </div>
 </div>
 
-{% if albums|length == 0 %}
+{% if album_count == 0 %}
 <div class="row justify-content-center">
     <div class="col-8" style="text-align:center">
         <p><b>No albums selected</b></p>
@@ -26,50 +26,24 @@
 </div>
 {% endif %}
 
-<div class="row">
+<div class="row" id="album-label-sheet"></div>
 
-{% for album in albums %}
+{% endblock %}
 
-    <div class="col-4 label" id="{{ album.id }}">
-        <div class="label-text ui-widget-content">
-            <div class="info-block">
-                {{album.created.strftime('%Y-%m-%d')}}
-                <strong>{{ album.artist.file_under }}</strong>
-            </div>
-            <div class="color-block">
-                <div style="background-color:#{{ album.genre.genrelabel.color_left }}"></div>
-                <div style="background-color:#{{ album.genre.genrelabel.color_right }}"></div>
-            </div>
-            <div class="label-row">
-                <strong>{{ album.artist.display_name }}</strong>
-            </div>
-            <div class="label-row">
-                {{ album.title }}
-            </div>
-            <div class="label-row">
-                {% for label in album.labels.all() %}
-                    {{label.name}}{% if not loop.last %} / {% endif %}
-                {% endfor %}
-            </div>
-            <div class="label-controls">
-                <a class="no-print add-label-control" href="#" onclick="insertBlankBefore({{ album.id }});">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                </a>
-                <a class="no-print remove-label-control" href="#" onclick="clearLabel({{ album.id }});">
-                    <i class='fa fa-times-circle' aria-hidden='true'></i>
-                </a>
-            </div>
-        </div>
-    </div>
+{% block page_scripts %}
+<script>
 
-{% endfor %}
-<div>
-
-<script type="text/javascript">
+$().ready(() => window.renderLabelSheet('album-label-sheet'));
 
 function clearLabel(id) {
-    var zapThisLabel = $("div#"+id);
-    zapThisLabel.remove();
+    let headers = addHeader();
+    fetch("/albums/toggle/print/"+id, {
+      method: 'POST',
+      headers: headers,
+      credentials: "include"
+    }).then(() => {
+        $("div#"+id).remove();
+    })
 }
 
 function insertBlankBefore(id) {
