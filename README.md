@@ -16,16 +16,16 @@ Create a new virtual environment, specifying a Python 3.6 binary:
 $ virtualenv -p PATH_TO_PYTHON_36 venv
 ```
 
-From the project root, install dependencies:
-
-```nohighlight
-$ pip install -r requirements.txt
-```
-
 Activate the environment:
 
 ```nohighlight
 $ source venv/bin/activate
+```
+
+From the project root, install dependencies:
+
+```nohighlight
+$ pip install -r requirements.txt
 ```
 
 ### Setting up a database
