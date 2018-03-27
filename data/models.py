@@ -15,3 +15,7 @@ class GenreLabelImport(ImportRecord):
 
 class GenreImport(ImportRecord):
     pass
+
+
+class AlbumImport(ImportRecord):
+    pass

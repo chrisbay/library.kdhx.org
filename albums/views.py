@@ -1,16 +1,15 @@
 import datetime
-from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic import ListView, DetailView
-from django.contrib import messages
-from django.contrib.messages.views import SuccessMessageMixin
+
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib import messages
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView
 from haystack.generic_views import SearchView
 from reversion.views import RevisionMixin
-from albums.models import Album, RecordLabel, Artist, Genre
-from albums.forms import AlbumCreateForm, AlbumSearchForm
 
+from albums.forms import AlbumCreateForm, AlbumSearchForm
+from albums.models import Album, RecordLabel, Artist, Genre
 
 PAGE_SIZE = 20
 

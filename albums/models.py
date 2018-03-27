@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class MediaType(models.Model):
@@ -90,7 +91,7 @@ class Album(models.Model):
     media = models.ForeignKey(MediaType, on_delete=models.PROTECT)
     genre = models.ForeignKey(Genre, on_delete=models.PROTECT)
     location = models.ForeignKey(Location, on_delete=models.PROTECT)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(default=timezone.now)
 
     class Meta:
         ordering = ["-created"]
