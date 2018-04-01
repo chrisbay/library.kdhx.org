@@ -12,7 +12,7 @@ from dal import autocomplete
 from albums.forms import AlbumCreateForm, AlbumSearchForm
 from albums.models import Album, RecordLabel, Artist, Genre
 
-PAGE_SIZE = 20
+PAGE_SIZE = 30
 
 
 class ContextMixin:
