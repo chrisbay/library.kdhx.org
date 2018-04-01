@@ -8,24 +8,54 @@
         {% set val = '' %}
     {% endif %}
 
-    <form method="get" action=".">
+    <form class="row" method="get" action=".">
 
-        <div class="form-group">
+        <div class="form-group col">
             <input type="text" class="form-control" id="q" name="q" placeholder="Search Albums" value="{{ val }}">
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-2 text-right">
             <input type="submit" value="Search" class="btn btn-primary" />
         </div>
     </form>
 
     {% if 'q' in request.GET %}
-        {% if page_obj.object_list|length == 1 %}
-            {% set result_text = 'Result' %}
-        {% else %}
-            {% set result_text = 'Results' %}
+
+    <div class="row">
+        <div class="col-2">
+            <span class="font-italic align-middle">
+                <span class="font-weight-bold">{{ page_obj.start_index() }}</span> -
+                <span class="font-weight-bold">{{ page_obj.end_index() }}</span> of
+                <span class="font-weight-bold">{{ paginator.count }}</span>
+            </span>
+        </div>
+        {% if is_paginated %}
+        <div class="col">
+            <nav class="d-inline-block">
+                <ul class="pagination pagination-sm mb-0">
+                    {% if page_obj.has_previous() %}
+                    <li class="page-item">
+                            <a class="page-link" href="{{ "%s?page=%d" % (url('albums:album-search'),page_obj.previous_page_number()) }}" aria-label="Previous">Previous</span></a>
+                        </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    {% endif %}
+
+                    {% if page_obj.has_next() %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ "%s?page=%d" % (url('albums:album-search'),page_obj.next_page_number()) }}" aria-label="Next">Next</span></a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Next</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
         {% endif %}
-        <h3>{{ page_obj.object_list|length }} {{ result_text }}</h3>
 
         <table class="table table-hover album-table">
             <thead class="thead-default">
@@ -45,16 +75,16 @@
                 <tr>
                     {% if user.is_authenticated %}
                     <td>
-                        <div class="album-star-control" 
-                                data-album-id="{{result.object.id}}" 
+                        <div class="album-star-control"
+                                data-album-id="{{result.object.id}}"
                                 data-starred="{{ (result.object in user_albums)|lower }}">
                         </div>
                     </td>
                     {% endif %}
                     {% if user.has_perm('albums.add_album') %}
                     <td>
-                        <div class="album-print-control" 
-                                data-album-id="{{result.object.id}}" 
+                        <div class="album-print-control"
+                                data-album-id="{{result.object.id}}"
                                 data-saved="{{ (request.session.labels_to_print and result.object.id in request.session.labels_to_print )|lower }}">
                         </div>
                     </td>
@@ -79,22 +109,5 @@
             </tbody>
         </table>
 
-        {% if is_paginated %}
-            <nav>
-                <ul class="pagination">
-                    {% if page_obj.has_previous() %}
-                    <li class="page-item">
-                        <a class="page-link" href="{{ "%s?page=%d" % (url('albums:album-list'),page_obj.previous_page_number()) }}" aria-label="Previous">Previous</span></a>
-                    </li>
-                    {% endif %}
-
-                    {% if page_obj.has_next() %}
-                    <li class="page-item">
-                        <a class="page-link" href="{{ "%s?page=%d" % (url('albums:album-list'),page_obj.next_page_number()) }}" aria-label="Next">Next</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </nav>
-        {% endif %}
     {% endif %}
 {% endblock %}
