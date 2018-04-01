@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from haystack.forms import SearchForm
 from haystack.query import SearchQuerySet
 from albums.models import Album, Artist, RecordLabel
+from dal import autocomplete
 
 DEFAULT_MEDIA_ID = 1
 DEFAULT_GENRE_ID = 42
@@ -20,6 +21,10 @@ class AlbumCreateForm(forms.ModelForm):
         fields = ['title', 'artist', 'new_artist_first', 'new_artist_last',
                   'new_artist_name', 'labels', 'new_label', 'media', 'genre',
                   'location']
+        widgets = {
+            'artist': autocomplete.ModelSelect2(url='/albums/artist-autocomplete/'),
+            'labels': autocomplete.ModelSelect2Multiple(url='/albums/labels-autocomplete/')
+        }
 
     def __init__(self, *args, **kwargs):
         super(AlbumCreateForm, self).__init__(*args, **kwargs)
@@ -76,4 +81,3 @@ class AlbumSearchForm(SearchForm):
         else:
             sqs = sqs.filter(content__contains=term)
         return sqs
-

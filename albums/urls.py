@@ -1,4 +1,4 @@
-from django.conf.urls import url, include
+from django.conf.urls import url
 from . import views
 from . import api
 
@@ -17,4 +17,6 @@ urlpatterns = [
     url(r'^genre/([-\w]+)$', views.AlbumsByGenre.as_view(), name='albums-by-genre'),
     url(r'^search/$', views.AlbumSearch.as_view(), name='album-search'),
     url(r'^weekly-email$', views.weekly_email, name='weekly-email'),
+    url(r'^artist-autocomplete/$', views.ArtistAutocomplete.as_view(), name='artist-autocomplete'),
+    url(r'^labels-autocomplete/$', views.LabelsAutocomplete.as_view(), name='labels-autocomplete'),
 ]

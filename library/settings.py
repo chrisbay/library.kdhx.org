@@ -38,6 +38,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'dal',
+    'dal_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -69,7 +71,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'library.urls'
-
 
 # TODO - Consider removing context_processors from jinja2 backends
 # per the rec at https://docs.djangoproject.com/en/1.11/topics/templates/

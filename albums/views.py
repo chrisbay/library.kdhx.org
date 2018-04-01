@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from haystack.generic_views import SearchView
 from reversion.views import RevisionMixin
+from dal import autocomplete
 
 from albums.forms import AlbumCreateForm, AlbumSearchForm
 from albums.models import Album, RecordLabel, Artist, Genre
@@ -175,3 +176,25 @@ def weekly_email(request):
         'end_date': end_date
     }
     return render(request, 'albums/weekly_email.jinja', args)
+
+
+class ArtistAutocomplete(autocomplete.Select2QuerySetView):
+
+    def get_queryset(self):
+        if not self.request.user.is_authenticated():
+            return Artist.objects.none()
+        qs = Artist.objects.all()
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q)
+        return qs
+
+
+class LabelsAutocomplete(autocomplete.Select2QuerySetView):
+
+    def get_queryset(self):
+        if not self.request.user.is_authenticated():
+            return RecordLabel.objects.none()
+        qs = RecordLabel.objects.all()
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q)
+        return qs
