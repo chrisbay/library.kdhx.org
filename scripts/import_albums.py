@@ -86,7 +86,7 @@ def run():
                         if len(existing_label) > 0:
                             labels.append(existing_label[0])
                         else:
-                            new_label = RecordLabel.objects.create(name=csv_label)
+                            new_label = RecordLabel.objects.create(name=csv_label.title())
                             labels.append(new_label)
                 else:
                     labels.append(self_released_obj)
@@ -109,7 +109,7 @@ def run():
                     print("Skipping import of album with unknown genre: {0}".format(csv_genre_id))
                     continue
 
-                genre_import = GenreImport.objects.get(orig_id=int(row[7]))
+                genre_import = GenreImport.objects.get(orig_id=csv_genre_id)
                 genre = Genre.objects.get(pk=genre_import.new_id)
 
                 csv_location = row[13].strip().title()
