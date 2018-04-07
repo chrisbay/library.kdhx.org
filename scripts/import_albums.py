@@ -98,6 +98,13 @@ def run():
                     media_obj = default_media_obj
 
                 csv_genre_id = int(row[7])
+
+                # Combine world beat/folk genres
+                if 15 <= csv_genre_id <= 21:
+                    csv_genre_id = csv_genre_id + 14
+                elif csv_genre_id == 36:
+                    csv_genre_id = 37
+
                 if csv_genre_id not in orig_genre_values:
                     print("Skipping import of album with unknown genre: {0}".format(csv_genre_id))
                     continue
