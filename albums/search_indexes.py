@@ -1,5 +1,5 @@
-import datetime
 from haystack import indexes
+
 from albums.models import Album
 
 

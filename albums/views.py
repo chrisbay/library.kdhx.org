@@ -134,6 +134,7 @@ class AlbumSearch(UserContextMixin, SearchView):
     title = 'Album Search'
     template_name = 'albums/album_search.jinja'
     form_class = AlbumSearchForm
+    paginate_by = PAGE_SIZE
 
 
 class AlbumCreate(PermissionRequiredMixin, ContextMixin, RevisionMixin,

@@ -1,8 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import logout
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import RedirectView
 
 urlpatterns = [
     url(r'', include('social_django.urls', namespace='social')),
