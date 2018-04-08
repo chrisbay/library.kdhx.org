@@ -18,14 +18,16 @@
 
 <body>
 
-    <header class="navbar navbar-expand-sm navbar-light bg-light">
+    <header class="navbar navbar-expand-sm fixed-top navbar-light bg-light">
         <nav class="container">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <span class="navbar-brand">
-                <img id="kdhx-logo" src="{{ static('src/images/kdhx-logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">Music Library
+                <a href="/">
+                    <img id="kdhx-logo" src="{{ static('src/images/kdhx-logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">Music Library
+                </a>
             </span>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -98,6 +100,19 @@
             {% endblock %}
         </div>
     </main>
+
+    <footer class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="container container-fluid">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ url('about') }}">About This Site</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="http://kdhx.org">KDHX.org</a>
+              </li>
+          </ul>
+        </nav>
+    </footer>
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

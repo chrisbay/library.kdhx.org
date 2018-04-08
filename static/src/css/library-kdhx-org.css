@@ -1,20 +1,37 @@
+body {
+    min-height: 100vh;
+    position: relative;
+}
 main {
-    padding: 1.5em 0;
+    padding: 5em 0 4em;
 }
 .bg-light {
     background-color: #f0f0f0fa !important;
 }
-/* Fix for bug in v4.0 beta */
-.show .dropdown-menu {
-    display:block;
-}
 .navbar-brand img {
     margin-right: 10px;
+}
+.navbar-brand a {
+    color: inherit;
+}
+.navbar-brand a:hover {
+    text-decoration: none;
 }
 @media (max-width: 576px) {
     .container {
         width: 100%;
     }
+}
+footer {
+    position: absolute !important;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    font-size: .8rem;
+}
+footer .nav-link {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 table.album-table {
     margin: 1.5em 0;

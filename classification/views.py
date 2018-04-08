@@ -1,8 +1,8 @@
-from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.shortcuts import render
+
 from albums.api import LABELS_TO_PRINT_KEY
-from classification.models import GenreLabel
 
 
 def print_labels(request):

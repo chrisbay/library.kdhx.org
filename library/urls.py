@@ -2,8 +2,10 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.views import logout
 from django.views.generic import RedirectView
+from django.views.generic import TemplateView
 
 urlpatterns = [
+    url(r'^about/$', TemplateView.as_view(template_name='about.jinja'), name="about"),
     url(r'', include('social_django.urls', namespace='social')),
     url(r'^$', RedirectView.as_view(url='/albums/'),
         name='home-page-redirect'),
