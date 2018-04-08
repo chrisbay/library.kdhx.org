@@ -97,12 +97,6 @@ table.album-table td, table.album-table th {
     border-radius: 10px;
     margin-bottom: 1rem;
 }
-#artist-form-group-wrapper::after {
-    content: "* Only create a new artist if the desired artist is not available above";
-}
-#label-form-group-wrapper::after {
-    content: "* Only create a new label if the desired label is not available above";
-}
 .page-heading {
     font-size: 1.75rem;
     margin-bottom: 1.5rem;

@@ -3,6 +3,13 @@
 {% block content %}
 <h2>{{page_title}}</h2>
 
+<p>
+    <a href="#" data-toggle="modal" data-target="#namingConventionsModal">
+        <i class="fa fa-info-circle"></i>
+        Naming and Data Conventions
+    </a>
+</p>
+
 <form method='post'>
     
     {% csrf_token %}
@@ -13,6 +20,29 @@
     </div>
 
 </form>
+
+<div class="modal fade" id="namingConventionsModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Naming and Data Conventions</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul>
+            <li>Only create a new artist or label if the desired entity does not already exist</li>
+            <li>Self-released albums should be assigned the label "Self" (not the name of the artist, "Self-released", "S/R", or other variants)</li>
+            <li>Use "and" over "&" unless an artist or album name explicitly uses "&"</li>
+            <li>Do not include the names of promotors or other entities (e.g. Clermont, Terrorbird) in the Labels field</li>
+            <li>For albums with multiple artists, use the artist: "Various Artists"</li>
+            <li>When creating a new artist, use Artist First/Last fields only when the artist name is that of an individual (e.g. Bob Dylan, Prince, P.J. Harvey) and not when the artist name is a band name or project name of an individual (e.g. The Kinks, Strand of Oaks)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
 
@@ -50,5 +80,4 @@ $(document).ready(function(){
 
 });
 </script>
-
 {% endblock %}
