@@ -193,6 +193,7 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = '/login/google-oauth2/'
 LOGIN_ERROR_URL = '/login-error/'
+HOME_URL = 'albums/'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ('326758487663-'
                                  'bto5rf6c4g4jva1v6beteu2ieg6to012'
@@ -205,6 +206,7 @@ SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/albums'
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 LOGIN_EXEMPT_URLS = [
+    '',
     LOGIN_ERROR_URL.lstrip('/'),
     'complete/google-oauth2/',
     'admin/*',
