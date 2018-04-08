@@ -35,7 +35,9 @@
                 <ul class="pagination pagination-sm mb-0">
                     {% if page_obj.has_previous() %}
                     <li class="page-item">
-                            <a class="page-link" href="{{ "%s?q=%s&page=%d" % (url('albums:album-search'),request.GET['q'],page_obj.previous_page_number()) }}" aria-label="Previous">Previous</span></a>
+                            <a class="page-link"
+                               href="{{ "%s?q=%s&page=%d" % (url('albums:album-search'),request.GET['q'],page_obj.previous_page_number()) }}"
+                               aria-label="Previous">Previous</a>
                         </li>
                     {% else %}
                     <li class="page-item disabled">
@@ -45,7 +47,9 @@
 
                     {% if page_obj.has_next() %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ "%s?q=%s&page=%d" % (url('albums:album-search'),request.GET['q'],page_obj.next_page_number()) }}" aria-label="Next">Next</span></a>
+                        <a class="page-link"
+                           href="{{ "%s?q=%s&page=%d" % (url('albums:album-search'),request.GET['q'],page_obj.next_page_number()) }}"
+                           aria-label="Next">Next</a>
                     </li>
                     {% else %}
                     <li class="page-item disabled">
