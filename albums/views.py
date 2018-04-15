@@ -36,7 +36,7 @@ class UserContextMixin(ContextMixin):
 
 
 class AlbumList(UserContextMixin, ListView):
-    title = 'Albums'
+    title = 'Recently Added Albums'
     template_name = 'albums/album_list.jinja'
     paginate_by = PAGE_SIZE
     model = Album
@@ -61,7 +61,6 @@ class RecentAlbumsList(AlbumList):
         context = super().get_context_data(**kwargs)
         title = self.title.format(days=self.days)
         context['page_title'] = title
-        context['page_heading'] = title
         return context
 
 

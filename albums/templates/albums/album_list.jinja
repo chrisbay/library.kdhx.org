@@ -2,19 +2,19 @@
 
 {% block content %}
 
-{% if user.has_perm('albums.add_album') %}
+
 <div class="row mb-3">
     <div class="col"><h2>{{page_title}}</h2></div>
 
+    {% if user.has_perm('albums.add_album') %}
     <div class="col-2">
         <a href="{{ url('albums:album-new') }}" class="btn btn-primary">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Add Album
         </a>
     </div>
+    {% endif %}
 </div>
-{% endif %}
-
 
 {% if is_paginated %}
 <div class="row">
