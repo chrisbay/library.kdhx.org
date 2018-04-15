@@ -77,7 +77,7 @@ class AlbumDetail(UserContextMixin, DetailView):
 
 class AlbumsByLabel(UserContextMixin, ListView):
     title = 'Albums on '
-    template_name = 'albums/album_list.jinja'
+    template_name = 'albums/album_by_label_list.jinja'
     model = Album
     paginate_by = PAGE_SIZE
 
@@ -91,6 +91,24 @@ class AlbumsByLabel(UserContextMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.title + self.label.name
         return context
+
+
+class RecordLabelUpdate(PermissionRequiredMixin, ContextMixin, RevisionMixin,
+                  SuccessMessageMixin, UpdateView):
+    title = 'Edit Label'
+    permission_required = 'albums.change_record_label'
+    template_name = 'albums/record_label_form.jinja'
+    model = RecordLabel
+    success_url = '/albums/label/'
+    success_message = 'Label updated: <strong>%(label)s</strong>'
+    fields = ['name']
+
+    def get_success_url(self):
+        return self.success_url + self.kwargs['pk']
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(cleaned_data,
+                                           label=self.object)
 
 
 class AlbumsByArtist(UserContextMixin, ListView):

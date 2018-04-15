@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^toggle/(?P<state>[\w]+)/(?P<album_id>[\d]+)$', api.toggle_album_state, name='toggle-album-state'),
     url(r'^labels-to-print/$', api.labels_to_print, name='labels-to-print'),
     url(r'^label/(?P<pk>[-\w]+)$', views.AlbumsByLabel.as_view(), name='albums-by-label'),
+    url(r'^label/edit/(?P<pk>[-\w]+)$', views.RecordLabelUpdate.as_view(), name='label-edit'),
     url(r'^artist/(?P<pk>[-\w]+)$', views.AlbumsByArtist.as_view(), name='albums-by-artist'),
     url(r'^artist/edit/(?P<pk>[-\w]+)$', views.ArtistUpdate.as_view(), name='artist-edit'),
     url(r'^genre/(?P<pk>[-\w]+)$', views.AlbumsByGenre.as_view(), name='albums-by-genre'),

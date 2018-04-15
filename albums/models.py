@@ -26,9 +26,9 @@ class RecordLabel(models.Model):
 
 
 class Artist(models.Model):
-    first = models.CharField(max_length=64, blank=True, default='')
-    last = models.CharField(max_length=64, blank=True, default='')
-    name = models.CharField(max_length=128, blank=True, default='')
+    first = models.CharField("Artist First", max_length=64, blank=True, default='')
+    last = models.CharField("Artist Last", max_length=64, blank=True, default='')
+    name = models.CharField("Artist Name", max_length=128, blank=True, default='')
 
     @classmethod
     def create(cls, first=None, last=None, name=None):
