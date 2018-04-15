@@ -9,7 +9,7 @@ from haystack.generic_views import SearchView
 from reversion.views import RevisionMixin
 from dal import autocomplete
 
-from albums.forms import AlbumCreateForm, AlbumSearchForm
+from albums.forms import AlbumCreateForm, AlbumSearchForm, ArtistUpdateForm
 from albums.models import Album, RecordLabel, Artist, Genre
 
 PAGE_SIZE = 30
@@ -21,6 +21,8 @@ class ContextMixin:
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.title
         context['user'] = self.request.user
+        if 'pk' in self.kwargs:
+            context['pk'] = self.kwargs['pk']
         return context
 
 
@@ -80,7 +82,7 @@ class AlbumsByLabel(UserContextMixin, ListView):
     paginate_by = PAGE_SIZE
 
     def get_queryset(self):
-        label_id = self.args[0]
+        label_id = self.kwargs['pk']
         label = RecordLabel.objects.get(id=label_id)
         self.label = label
         return label.album_set.all()
@@ -88,18 +90,17 @@ class AlbumsByLabel(UserContextMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.title + self.label.name
-        context['page_heading'] = context['page_title']
         return context
 
 
 class AlbumsByArtist(UserContextMixin, ListView):
     title = 'Albums by '
-    template_name = 'albums/album_list.jinja'
+    template_name = 'albums/album_by_artist_list.jinja'
     model = Album
     paginate_by = PAGE_SIZE
 
     def get_queryset(self):
-        artist_id = self.args[0]
+        artist_id = self.kwargs['pk']
         artist = Artist.objects.get(id=artist_id)
         self.artist = artist
         return artist.album_set.all()
@@ -107,8 +108,25 @@ class AlbumsByArtist(UserContextMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.title + self.artist.display_name
-        context['page_heading'] = context['page_title']
         return context
+
+
+class ArtistUpdate(PermissionRequiredMixin, ContextMixin, RevisionMixin,
+                  SuccessMessageMixin, UpdateView):
+    title = 'Edit Artist'
+    permission_required = 'albums.change_artist'
+    template_name = 'albums/artist_form.jinja'
+    model = Artist
+    success_url = '/albums/artist/'
+    success_message = 'Artist updated: <strong>%(artist)s</strong>'
+    form_class = ArtistUpdateForm
+
+    def get_success_url(self):
+        return self.success_url + self.kwargs['pk']
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(cleaned_data,
+                                           artist=self.object)
 
 
 class AlbumsByGenre(UserContextMixin, ListView):
@@ -118,7 +136,7 @@ class AlbumsByGenre(UserContextMixin, ListView):
     paginate_by = PAGE_SIZE
 
     def get_queryset(self):
-        genre_id = self.args[0]
+        genre_id = self.kwargs['pk']
         genre = Genre.objects.get(id=genre_id)
         self.genre = genre
         return genre.album_set.all()
@@ -126,7 +144,6 @@ class AlbumsByGenre(UserContextMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.genre.label + ' Albums'
-        context['page_heading'] = context['page_title']
         return context
 
 

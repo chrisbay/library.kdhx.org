@@ -2,19 +2,18 @@
 
 {% block content %}
 
-{% if user.has_perm('albums.add_album') %}
 <div class="row mb-3">
     <div class="col"><h2>{{page_title}}</h2></div>
 
+    {% if user.has_perm('albums.change_artist') %}
     <div class="col-2">
-        <a href="{{ url('albums:album-new') }}" class="btn btn-primary">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Add Album
+        <a href="{{ url('albums:artist-edit', args=[pk]) }}" class="btn btn-primary">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            Edit Artist
         </a>
     </div>
+    {% endif %}
 </div>
-{% endif %}
-
 
 {% if is_paginated %}
 <div class="row">
@@ -85,16 +84,16 @@
         <tr>
             {% if user.is_authenticated %}
             <td>
-                <div class="album-star-control" 
-                        data-album-id="{{album.id}}" 
+                <div class="album-star-control"
+                        data-album-id="{{album.id}}"
                         data-starred="{{ (album in user_albums)|lower }}">
                 </div>
             </td>
             {% endif %}
             {% if user.has_perm('albums.add_album') %}
             <td>
-                <div class="album-print-control" 
-                        data-album-id="{{album.id}}" 
+                <div class="album-print-control"
+                        data-album-id="{{album.id}}"
                         data-saved="{{ (request.session.labels_to_print and album.id in request.session.labels_to_print )|lower }}">
                 </div>
             </td>

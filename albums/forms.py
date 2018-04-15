@@ -1,9 +1,10 @@
+from dal import autocomplete
 from django import forms
 from django.core.exceptions import ValidationError
 from haystack.forms import SearchForm
 from haystack.query import SearchQuerySet
+
 from albums.models import Album, Artist, RecordLabel
-from dal import autocomplete
 
 DEFAULT_MEDIA_ID = 1
 DEFAULT_GENRE_ID = 42
@@ -34,7 +35,8 @@ class AlbumCreateForm(forms.ModelForm):
         self.fields['genre'].initial = DEFAULT_GENRE_ID
         self.fields['location'].initial = DEFAULT_LOCATION_ID
 
-    def has_new_artist(self, data):
+    @staticmethod
+    def has_new_artist(data):
         return ((data['new_artist_first'] and
                 data['new_artist_last']) or
                 data['new_artist_name'])
@@ -81,3 +83,23 @@ class AlbumSearchForm(SearchForm):
         else:
             sqs = sqs.filter(content__contains=term)
         return sqs
+
+
+class ArtistUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Artist
+        fields = ['first', 'last', 'name']
+
+    def clean(self):
+        super(ArtistUpdateForm, self).clean()
+        artist_data = self.cleaned_data
+
+        if artist_data['name'] and (artist_data['first'] or artist_data['last']):
+            raise ValidationError(('First or Last fields may not be specified '
+                                   'if specifying Name field'))
+
+        if not artist_data['name'] and not (artist_data['first'] and artist_data['last']):
+            raise ValidationError(('Must specify both First and Last, or Name. '
+                                   'If creating an artist with no last name '
+                                   '(e.g. Madonna) then use the Name field.'))

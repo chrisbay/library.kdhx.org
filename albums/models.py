@@ -51,7 +51,7 @@ class Artist(models.Model):
         return self.name[0].upper()
 
     def natural_key(self):
-        return (self.display_name, self.file_under)
+        return self.display_name, self.file_under
 
     def __repr__(self):
         return '<Artist {0}>'.format(self.display_name)
