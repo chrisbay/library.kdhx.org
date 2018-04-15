@@ -1,13 +1,13 @@
-from django.urls import resolve
+import re
+
+from django.conf import settings
+from django.contrib.auth.models import AnonymousUser
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.test import TestCase
-from django.db.utils import IntegrityError
-from django.contrib.auth.models import AnonymousUser
-from django.conf import settings
+from django.urls import resolve
+
 from albums import views
-from albums.models import MediaType
-import re
 
 
 class AlbumsTest(TestCase):

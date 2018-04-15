@@ -7,3 +7,5 @@ def run():
     RecordLabel.objects.all().delete()
     Artist.objects.all().delete()
     AlbumImport.objects.all().delete()
+    RecordLabel.objects.create(name="Self")
+    Artist.objects.create(name="Various Artists")
