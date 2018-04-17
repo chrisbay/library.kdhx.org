@@ -19,13 +19,6 @@
 {% if is_paginated %}
 <div class="row">
     <div class="col-2">
-        <span class="font-italic align-middle">
-            <span class="font-weight-bold">{{ page_obj.start_index() }}</span> -
-            <span class="font-weight-bold">{{ page_obj.end_index() }}</span> of
-            <span class="font-weight-bold">{{ paginator.count }}</span>
-        </span>
-    </div>
-    <div class="col-2">
         <nav class="d-inline-block">
             <ul class="pagination pagination-sm mb-0">
                 {% if page_obj.has_previous() %}
@@ -53,6 +46,13 @@
                 {% endif %}
             </ul>
         </nav>
+    </div>
+    <div class="col-4">
+        <span class="font-italic align-middle">
+            <span class="font-weight-bold">{{ page_obj.start_index() }}</span> -
+            <span class="font-weight-bold">{{ page_obj.end_index() }}</span> of
+            <span class="font-weight-bold">{{ paginator.count }}</span>
+        </span>
     </div>
     <div class="col text-right">
         <span>Filter by last:</span>
