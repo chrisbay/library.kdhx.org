@@ -59,6 +59,12 @@ $ pip freeze > requirements.txt
 $ ./manage.py runscript import_genres
 ```
 
+To move all albums with a given label ID to another label ID (does not affect additional labels for the given albums):
+
+```nohighlight
+$ ./manage.py runscript merge_labels --script-args from_id to_id
+```
+
 ## Building Static Assets with Webpack
 
 ```nohighlight
