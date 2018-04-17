@@ -71,7 +71,7 @@ class AlbumDetail(UserContextMixin, DetailView):
     context_object_name = 'album'
 
     def get_object(self):
-        return get_object_or_404(Album, id=int(self.args[0]))
+        return get_object_or_404(Album, id=int(self.kwargs['pk']))
 
 
 class AlbumsByLabel(UserContextMixin, ListView):
