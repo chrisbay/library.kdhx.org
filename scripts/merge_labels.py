@@ -1,4 +1,4 @@
-from albums.models import RecordLabel, Album
+from albums.models import RecordLabel
 
 
 def run(*args):

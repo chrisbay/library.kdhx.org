@@ -30,7 +30,7 @@
                 {% if page_obj.has_previous() %}
                 <li class="page-item">
                     <a class="page-link"
-                       href="{{ "%s?page=%d" % (url('albums:album-list'),page_obj.previous_page_number()) }}"
+                       href="{{ "%s?page=%d" % (url('albums:albums-by-label', args=[pk]),page_obj.previous_page_number()) }}"
                        aria-label="Previous">Previous</a>
                 </li>
                 {% else %}
@@ -42,7 +42,7 @@
                 {% if page_obj.has_next() %}
                 <li class="page-item">
                     <a class="page-link"
-                       href="{{ "%s?page=%d" % (url('albums:album-list'),page_obj.next_page_number()) }}"
+                       href="{{ "%s?page=%d" % (url('albums:albums-by-label', args=[pk]),page_obj.next_page_number()) }}"
                        aria-label="Next">Next</a>
                 </li>
                 {% else %}

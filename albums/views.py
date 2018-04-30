@@ -148,7 +148,7 @@ class ArtistUpdate(PermissionRequiredMixin, ContextMixin, RevisionMixin,
 
 class AlbumsByGenre(UserContextMixin, ListView):
     title = 'Albums by Genre'
-    template_name = 'albums/album_list.jinja'
+    template_name = 'albums/album_by_genre_list.jinja'
     model = Album
     paginate_by = PAGE_SIZE
 
