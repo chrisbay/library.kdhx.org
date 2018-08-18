@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 import bootstrapform_jinja
 from django.contrib.messages import constants as messages
+from urllib.parse import urlparse
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
@@ -198,12 +199,10 @@ HOME_URL = 'albums/'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ('326758487663-'
                                  'bto5rf6c4g4jva1v6beteu2ieg6to012'
                                  '.apps.googleusercontent.com')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'jgHIVsl7gyP2cI2lRM3cFbPJ'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['ORG_KDHX_LIBRARY_OAUTH2_SECRET']
 SOCIAL_AUTH_GOOGLE_OAUTH2_WHITE_LISTED_DOMAINS = ['kdhx.org']
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/albums'
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 LOGIN_EXEMPT_URLS = [
     '',
@@ -214,10 +213,23 @@ LOGIN_EXEMPT_URLS = [
     'albums/detail/',
 ]
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Elasticsearch / Haystack Config
+
+es = urlparse(os.environ.get('SEARCHBOX_URL') or 'http://127.0.0.1:9200/')
+
+port = es.port or 80
+
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
-        'URL': 'http://localhost:9200/',
+        'URL': es.scheme + '://' + es.hostname + ':' + str(port),
         'INDEX_NAME': 'haystack',
     },
 }
+
+if es.username:
+    HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": es.username + ':' + es.password}
+
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

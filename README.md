@@ -28,14 +28,18 @@ From the project root, install dependencies:
 $ pip install -r requirements.txt
 ```
 
-### Setting up a database
+### Setting Up the Database
 
 - `$ createdb library_kdhx_org`
 - `> CREATE ROLE library WITH LOGIN PASSWORD 'independentmusicplayshere';`
 - `> GRANT ALL PRIVILEGES ON DATABASE library_kdhx_org TO library;`
 - `> ALTER USER library CREATEDB;`
 
-### Setting up Oauth2
+### Setting Up Oauth2
+
+TODO
+
+### Setting Up Elasticsearch
 
 TODO
 
