@@ -14,6 +14,7 @@ import os
 import bootstrapform_jinja
 from django.contrib.messages import constants as messages
 from urllib.parse import urlparse
+import dj_database_url
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
@@ -125,17 +126,14 @@ WSGI_APPLICATION = 'library.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'library_kdhx_org',
-        'USER': 'library',
-        'PASSWORD': 'independentmusicplayshere',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+if os.environ.get('ENVIRONMENT') == 'DEVELOPMENT':
+    psql_ssl_require = False
+else:
+    psql_ssl_require = True
 
+DATABASES = {
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=psql_ssl_require)
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
