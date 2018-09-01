@@ -214,20 +214,20 @@ LOGIN_EXEMPT_URLS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Elasticsearch / Haystack Config
 
-es = urlparse(os.environ.get('SEARCHBOX_URL') or 'http://127.0.0.1:9200/')
+ES_URL = urlparse(os.environ.get('BONSAI_URL') or 'http://127.0.0.1:9200/')
 
-port = es.port or 80
+port = ES_URL.port or 80
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
-        'URL': es.scheme + '://' + es.hostname + ':' + str(port),
-        'INDEX_NAME': 'haystack',
+        'ENGINE': 'haystack.backends.elasticsearch5_backend.Elasticsearch5SearchEngine',
+        'URL': ES_URL.scheme + '://' + ES_URL.hostname + ':' + str(port),
+        'INDEX_NAME': 'haystack_kdhx_library',
     },
 }
 
-if es.username:
-    HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": es.username + ':' + es.password}
+if ES_URL.username:
+    HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": ES_URL.username + ':' + ES_URL.password}
 
 
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

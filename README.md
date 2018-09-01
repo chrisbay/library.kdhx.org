@@ -41,7 +41,11 @@ TODO
 
 ### Setting Up Elasticsearch
 
-TODO
+To reindex:
+
+```nohighlight
+$ ./manage.py rebuild_index
+```
 
 ### Running the application
 
