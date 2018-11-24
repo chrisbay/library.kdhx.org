@@ -34,7 +34,7 @@ SECRET_KEY = '2d&%w61wuc$!$%r6pq$3=c4w+uqb)10x_5%2(_vh_4td5*f%_l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '.kdhx.org', '104.248.237.137']
+ALLOWED_HOSTS = ['localhost', '.kdhx.org', '104.248.237.137', 'kdhxlib.chrisbay.net']
 
 
 # Application definition
