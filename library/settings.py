@@ -212,7 +212,7 @@ LOGIN_EXEMPT_URLS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Elasticsearch / Haystack Config
 
-ES_URL = urlparse(os.environ.get('BONSAI_URL') or 'http://127.0.0.1:9200/')
+ES_URL = urlparse('http://localhost:9200/')
 
 port = ES_URL.port or 80
 
