@@ -69,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'library.middleware.LoginRequiredMiddleware',
+    'library.middleware.CatchOperationalError',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 ]
 
@@ -192,11 +193,11 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = '/login/google-oauth2/'
 LOGIN_ERROR_URL = '/login-error/'
-HOME_URL = 'albums/'
+HOME_URL = '/albums/'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ['ORG_KDHX_LIBRARY_OAUTH2_CLIENT']
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['ORG_KDHX_LIBRARY_OAUTH2_SECRET']
-SOCIAL_AUTH_GOOGLE_OAUTH2_WHITE_LISTED_DOMAINS = ['kdhx.org']
+SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_DOMAINS = ['kdhx.org']
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/albums'
 

@@ -1,11 +1,19 @@
 from django.http import HttpResponseRedirect
 from django.conf import settings
+from django.contrib import messages
 from django.utils.deprecation import MiddlewareMixin
 from re import compile
 
 EXEMPT_URLS = [compile(settings.LOGIN_URL.lstrip('/'))]
 if hasattr(settings, 'LOGIN_EXEMPT_URLS'):
     EXEMPT_URLS += [compile(expr) for expr in settings.LOGIN_EXEMPT_URLS]
+
+
+class CatchOperationalError(MiddlewareMixin):
+    def process_exception(self, request, exception):
+        if type(exception).__name__ == 'AuthForbidden':
+            messages.error(request, 'You must have a @kdhx.org email to log in.')
+            return HttpResponseRedirect(settings.HOME_URL)
 
 
 class LoginRequiredMiddleware(MiddlewareMixin):
@@ -31,3 +39,5 @@ class LoginRequiredMiddleware(MiddlewareMixin):
                 return HttpResponseRedirect(settings.LOGIN_URL)
             elif not path:
                 return HttpResponseRedirect(settings.HOME_URL)
+
+
