@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     'bootstrapform_jinja',
     'django_extensions',
     'reversion',
-    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -209,24 +208,3 @@ LOGIN_EXEMPT_URLS = [
     'albums/',
     'albums/detail/',
 ]
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Elasticsearch / Haystack Config
-
-ES_URL = urlparse('http://localhost:9200/')
-
-port = ES_URL.port or 80
-
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.elasticsearch5_backend.Elasticsearch5SearchEngine',
-        'URL': ES_URL.scheme + '://' + ES_URL.hostname + ':' + str(port),
-        'INDEX_NAME': 'haystack_kdhx_library',
-    },
-}
-
-if ES_URL.username:
-    HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": ES_URL.username + ':' + ES_URL.password}
-
-
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

@@ -1,8 +1,6 @@
 from dal import autocomplete
 from django import forms
 from django.core.exceptions import ValidationError
-from haystack.forms import SearchForm
-from haystack.query import SearchQuerySet
 
 from albums.models import Album, Artist, RecordLabel
 
@@ -71,18 +69,6 @@ class AlbumCreateForm(forms.ModelForm):
             album.labels.clear()
             album.labels.add(new_label)
         return album
-
-
-class AlbumSearchForm(SearchForm):
-
-    def search(self):
-        sqs = SearchQuerySet()
-        term = self.cleaned_data['q']
-        if term == '':
-            sqs = sqs.all()
-        else:
-            sqs = sqs.filter(content__contains=term)
-        return sqs
 
 
 class ArtistUpdateForm(forms.ModelForm):

@@ -75,39 +75,39 @@
                 </tr>
             </thead>
             <tbody>
-                {% for result in page_obj.object_list %}
+                {% for album in album_list %}
                 <tr>
                     {% if user.is_authenticated %}
                     <td>
                         <div class="album-star-control"
-                                data-album-id="{{result.object.id}}"
-                                data-starred="{{ (result.object in user_albums)|lower }}">
+                                data-album-id="{{album.id}}"
+                                data-starred="{{ (album in user_albums)|lower }}">
                         </div>
                     </td>
                     {% endif %}
                     {% if user.has_perm('albums.add_album') %}
                     <td>
                         <div class="album-print-control"
-                                data-album-id="{{result.object.id}}"
-                                data-saved="{{ (request.session.labels_to_print and result.object.id in request.session.labels_to_print )|lower }}">
+                                data-album-id="{{album.id}}"
+                                data-saved="{{ (request.session.labels_to_print and album.id in request.session.labels_to_print )|lower }}">
                         </div>
                     </td>
                     {% endif %}
-                    <th scope="row">{{result.object.artist.file_under}}</th>
+                    <th scope="row">{{album.artist.file_under}}</th>
                     <td>
-                        <a href="{{ url('albums:albums-by-artist', args=[result.object.artist.id]) }}">{{result.object.artist.display_name}}</a>
+                        <a href="{{ url('albums:albums-by-artist', args=[album.artist.id]) }}">{{album.artist.display_name}}</a>
                     </td>
-                    <td><a href="{{ url('albums:album-detail', args=[result.object.id]) }}">{{result.object.title}}</a></td>
+                    <td><a href="{{ url('albums:album-detail', args=[album.id]) }}">{{album.title}}</a></td>
                     <td>
-                        <a href="{{ url('albums:albums-by-genre', args=[result.object.genre.id]) }}">{{result.object.genre.label}}</a>
+                        <a href="{{ url('albums:albums-by-genre', args=[album.genre.id]) }}">{{album.genre.label}}</a>
                     </td>
                     <td>
-                    {% for label in result.object.labels.all() %}
+                    {% for label in album.labels.all() %}
                         <a href="{{ url('albums:albums-by-label', args=[label.id]) }}">{{label.name}}</a>
                         {% if not loop.last %} / {% endif %}
                     {% endfor %}
                     </td>
-                    <td>{{ result.object.location.label }}</td>
+                    <td>{{ album.location.label }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

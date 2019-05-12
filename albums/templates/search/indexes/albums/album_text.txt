@@ -1,5 +1,0 @@
-{{ object.title }}
-{{ object.artist.display_name }}
-{% for label in object.labels.all %}
-{{ label.name }}
-{% endfor %}

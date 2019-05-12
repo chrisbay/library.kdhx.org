@@ -5,11 +5,10 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from haystack.generic_views import SearchView
 from reversion.views import RevisionMixin
 from dal import autocomplete
 
-from albums.forms import AlbumCreateForm, AlbumSearchForm, ArtistUpdateForm
+from albums.forms import AlbumCreateForm, ArtistUpdateForm
 from albums.models import Album, RecordLabel, Artist, Genre
 
 PAGE_SIZE = 30
@@ -164,11 +163,19 @@ class AlbumsByGenre(UserContextMixin, ListView):
         return context
 
 
-class AlbumSearch(UserContextMixin, SearchView):
+class AlbumSearch(UserContextMixin, ListView):
     title = 'Album Search'
     template_name = 'albums/album_search.jinja'
-    form_class = AlbumSearchForm
+    model = Album
     paginate_by = PAGE_SIZE
+
+    def get_queryset(self):
+        queryset = super(AlbumSearch, self).get_queryset()
+
+        q = self.request.GET.get('q')
+        if q:
+            return queryset.filter(title__icontains=q)
+        return queryset
 
 
 class AlbumCreate(PermissionRequiredMixin, ContextMixin, RevisionMixin,
