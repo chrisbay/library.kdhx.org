@@ -16,6 +16,8 @@ from django.contrib.messages import constants as messages
 from urllib.parse import urlparse
 import dj_database_url
 
+ENV = os.environ.get('ENVIRONMENT')
+
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
     messages.DEBUG: 'info',
@@ -24,17 +26,14 @@ MESSAGE_TAGS = {
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+if ENV == 'DEVELOPMENT':
+    DEBUG = True
+    SECRET_KEY = '2d&%w61wuc$!$%r6pq$3=c4w+uqb)10x_5%2(_vh_4td5*f%_l'
+else:
+    DEBUG = False
+    SECRET_KEY = os.environ.get('DJANGO_SECRET')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2d&%w61wuc$!$%r6pq$3=c4w+uqb)10x_5%2(_vh_4td5*f%_l'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['localhost', '.kdhx.org', '104.248.237.137', 'kdhxlib.chrisbay.net']
+ALLOWED_HOSTS = ['.kdhx.org', 'kdhxlib.chrisbay.net', 'test.chrisbay.net']
 
 
 # Application definition
@@ -126,7 +125,7 @@ WSGI_APPLICATION = 'library.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-if os.environ.get('ENVIRONMENT') == 'DEVELOPMENT':
+if ENV == 'DEVELOPMENT':
     psql_ssl_require = False
 else:
     psql_ssl_require = True
