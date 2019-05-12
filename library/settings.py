@@ -33,7 +33,7 @@ else:
     DEBUG = False
     SECRET_KEY = os.environ.get('DJANGO_SECRET')
 
-ALLOWED_HOSTS = ['localhost', '.kdhx.org', '104.248.237.137', 'kdhxlib.chrisbay.net', 'chrisbay.dev']
+ALLOWED_HOSTS = ['.kdhx.org', 'kdhxlib.chrisbay.net', 'test.chrisbay.net']
 
 
 # Application definition
