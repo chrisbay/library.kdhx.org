@@ -27,7 +27,10 @@
             <tbody>
                 {% for res in search_results %}
                 <tr>
-                    <td>{{ res.title }}</td>
+                    <td>
+                        <a href="{{ get_entity_url(res) }}">{{ res.title }}</a>
+                        <span class="search-entity-label">{{ get_entity_type_label(res) }}</span>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

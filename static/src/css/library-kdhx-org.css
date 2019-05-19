@@ -101,6 +101,13 @@ table.album-table td, table.album-table th {
     font-size: 1.75rem;
     margin-bottom: 1.5rem;
 }
+.search-entity-label {
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #999;
+	font-size: 80%;
+	margin-left: 1em;
+}
 
 /* LABEL PRINTING */
 #label-controls {

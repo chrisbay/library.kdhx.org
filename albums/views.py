@@ -14,7 +14,6 @@ from albums.models import Album, RecordLabel, Artist, Genre
 
 PAGE_SIZE = 30
 
-
 class ContextMixin:
 
     def get_context_data(self, **kwargs):
