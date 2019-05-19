@@ -22,92 +22,12 @@
     {% if 'q' in request.GET %}
 
     <div class="row">
-        <div class="col-2">
-            <span class="font-italic align-middle">
-                <span class="font-weight-bold">{{ page_obj.start_index() }}</span> -
-                <span class="font-weight-bold">{{ page_obj.end_index() }}</span> of
-                <span class="font-weight-bold">{{ paginator.count }}</span>
-            </span>
-        </div>
-        {% if is_paginated %}
-        <div class="col">
-            <nav class="d-inline-block">
-                <ul class="pagination pagination-sm mb-0">
-                    {% if page_obj.has_previous() %}
-                    <li class="page-item">
-                            <a class="page-link"
-                               href="{{ "%s?q=%s&page=%d" % (url('albums:album-search'),request.GET['q'],page_obj.previous_page_number()) }}"
-                               aria-label="Previous">Previous</a>
-                        </li>
-                    {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    {% endif %}
-
-                    {% if page_obj.has_next() %}
-                    <li class="page-item">
-                        <a class="page-link"
-                           href="{{ "%s?q=%s&page=%d" % (url('albums:album-search'),request.GET['q'],page_obj.next_page_number()) }}"
-                           aria-label="Next">Next</a>
-                    </li>
-                    {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Next</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </nav>
-        </div>
-        {% endif %}
 
         <table class="table table-hover album-table">
-            <thead class="thead-default">
-                <tr>
-                    {% if user.is_authenticated %}<th></th>{% endif %}
-                    {% if user.has_perm('albums.add_album') %}<th></th>{% endif %}
-                    <th></th>
-                    <th>Artist</th>
-                    <th>Album</th>
-                    <th>Genre</th>
-                    <th>Label</th>
-                    <th>Location</th>
-                </tr>
-            </thead>
             <tbody>
-                {% for album in album_list %}
+                {% for res in search_results %}
                 <tr>
-                    {% if user.is_authenticated %}
-                    <td>
-                        <div class="album-star-control"
-                                data-album-id="{{album.id}}"
-                                data-starred="{{ (album in user_albums)|lower }}">
-                        </div>
-                    </td>
-                    {% endif %}
-                    {% if user.has_perm('albums.add_album') %}
-                    <td>
-                        <div class="album-print-control"
-                                data-album-id="{{album.id}}"
-                                data-saved="{{ (request.session.labels_to_print and album.id in request.session.labels_to_print )|lower }}">
-                        </div>
-                    </td>
-                    {% endif %}
-                    <th scope="row">{{album.artist.file_under}}</th>
-                    <td>
-                        <a href="{{ url('albums:albums-by-artist', args=[album.artist.id]) }}">{{album.artist.display_name}}</a>
-                    </td>
-                    <td><a href="{{ url('albums:album-detail', args=[album.id]) }}">{{album.title}}</a></td>
-                    <td>
-                        <a href="{{ url('albums:albums-by-genre', args=[album.genre.id]) }}">{{album.genre.label}}</a>
-                    </td>
-                    <td>
-                    {% for label in album.labels.all() %}
-                        <a href="{{ url('albums:albums-by-label', args=[label.id]) }}">{{label.name}}</a>
-                        {% if not loop.last %} / {% endif %}
-                    {% endfor %}
-                    </td>
-                    <td>{{ album.location.label }}</td>
+                    <td>{{ res.title }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

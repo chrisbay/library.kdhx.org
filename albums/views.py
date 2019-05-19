@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from reversion.views import RevisionMixin
 from dal import autocomplete
+from watson.views import SearchView
 
 from albums.forms import AlbumCreateForm, ArtistUpdateForm
 from albums.models import Album, RecordLabel, Artist, Genre
@@ -163,19 +164,14 @@ class AlbumsByGenre(UserContextMixin, ListView):
         return context
 
 
-class AlbumSearch(UserContextMixin, ListView):
-    title = 'Album Search'
-    template_name = 'albums/album_search.jinja'
-    model = Album
-    paginate_by = PAGE_SIZE
+class AlbumSearch(SearchView, ContextMixin):
+    title = 'Search'
+    template_name = "albums/album_search.jinja"
 
-    def get_queryset(self):
-        queryset = super(AlbumSearch, self).get_queryset()
-
-        q = self.request.GET.get('q')
-        if q:
-            return queryset.filter(title__icontains=q)
-        return queryset
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = self.title
+        return context
 
 
 class AlbumCreate(PermissionRequiredMixin, ContextMixin, RevisionMixin,
