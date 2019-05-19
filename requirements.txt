@@ -3,11 +3,9 @@ dj-database-url==0.5.0
 Django==1.11.10
 django-autocomplete-light==3.2.10
 django-extensions==1.7.9
-django-haystack==2.8.2.dev63+g4136ad7
 django-jinja==2.3.0
 django-jinja-bootstrap-form==4.1.1
 django-reversion==2.0.9
-elasticsearch==5.5.3
 gunicorn==19.9.0
 Jinja2==2.10
 MarkupSafe==1.0
