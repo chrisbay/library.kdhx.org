@@ -166,6 +166,7 @@ class AlbumsByGenre(UserContextMixin, ListView):
 class AlbumSearch(SearchView, ContextMixin):
     title = 'Search'
     template_name = "albums/album_search.jinja"
+    paginate_by = PAGE_SIZE
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
