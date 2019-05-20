@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 import bootstrapform_jinja
 from django.contrib.messages import constants as messages
-from urllib.parse import urlparse
 import dj_database_url
 
 ENV = os.environ.get('ENVIRONMENT')
@@ -177,6 +176,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = "/home/library/library.kdhx.org/static/"
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
