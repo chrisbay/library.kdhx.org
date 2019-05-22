@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^about/$', TemplateView.as_view(template_name='about.jinja'), name="about"),
+    url(r'^privacy/$', TemplateView.as_view(template_name='privacy-policy.jinja'), name="privacy"),
     url(r'', include('social_django.urls', namespace='social')),
     url(r'^$', RedirectView.as_view(url='/albums/'),
         name='home-page-redirect'),
