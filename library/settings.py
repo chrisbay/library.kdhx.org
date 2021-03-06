@@ -131,6 +131,7 @@ if ENV == 'DEVELOPMENT':
 else:
     psql_ssl_require = True
 
+# the DATABASE_URL env var must be configured for this to work
 DATABASES = {
     'default': dj_database_url.config(conn_max_age=600, ssl_require=psql_ssl_require)
 }
@@ -214,8 +215,8 @@ LOGIN_EXEMPT_URLS = [
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ['EMAIL_USER']
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASSWORD']
+EMAIL_HOST_USER = os.environ['ORG_KDHX_TEST_USER_EMAIL']
+EMAIL_HOST_PASSWORD = os.environ['ORG_KDHX_TEST_USER_PASS']
 EMAIL_USE_TLS = True
 
 CRON_CLASSES = [

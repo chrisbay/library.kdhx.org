@@ -10,10 +10,10 @@ Install `virtualenv`:
 $ pip install virtualenv
 ```
 
-Create a new virtual environment, specifying a Python 3.6 binary:
+Create a new virtual environment, specifying a Python 3.7 binary:
 
 ```nohighlight
-$ virtualenv -p PATH_TO_PYTHON_36 venv
+$ virtualenv -p PATH_TO_PYTHON_37 venv
 ```
 
 Activate the environment:
@@ -38,14 +38,6 @@ $ pip install -r requirements.txt
 ### Setting Up Oauth2
 
 TODO
-
-### Setting Up Elasticsearch
-
-To reindex:
-
-```nohighlight
-$ ./manage.py rebuild_index
-```
 
 ### Running the application
 
